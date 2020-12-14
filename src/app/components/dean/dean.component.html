@@ -1,0 +1,153 @@
+<div>
+  <div class="d-flex" id="wrapper">
+      <!-- Sidebar -->
+      <div class="bg-light border-right" id="sidebar-wrapper">
+        <button class="list-group-item list-group-item-action bg-light font-weight-bold" (click)="showMain()">Jolanta Zwietu </button>
+        <div class="list-group list-group-flush">
+          <button class="list-group-item list-group-item-action bg-light" (click)="showImport()">Importuj plan zajęć</button>
+          <button class="list-group-item list-group-item-action bg-light" (click)="showEdits()">Edytuj plan zajęć</button>
+          <button class="list-group-item list-group-item-action bg-light" (click)="showGroups()">Zobacz członków grupy</button>
+  
+          <div class="btn-group dropright">
+            <button type="button" class="list-group-item list-group-item-action btn dropdown-toggle bg-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Motyw
+            </button>
+            <div class="dropdown-menu">
+              <button class="list-group-item list-group-item-action bg-light" >Dzienny</button>
+              <button class="list-group-item list-group-item-action bg-light">Nocny</button>
+            </div>
+          </div>
+  
+          <div class="btn-group dropright">
+            <button type="button" class="btn dropdown-toggle list-group-item list-group-item-action bg-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Konto
+            </button>
+            <div class="dropdown-menu">
+              <button class="list-group-item list-group-item-action bg-light" (click)="changePassword()">Zmień hasło</button>
+              <a routerLink="/" class="list-group-item list-group-item-action bg-light">Wyloguj się</a>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+      <!-- /#sidebar-wrapper -->
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+          <button class="btn btn-danger" id="menu-toggle">Menu</button>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </nav>
+
+        <div class="container-fluid" *ngIf="MainDisplay" >
+          <h1 class="mt-4">SignMeUp</h1>
+          <p>Celem projektu jest implementacja <code>SignMeUp</code> - platformy internetowej służacej do tworzenia 
+          spersonalizowa-nego planu zajęć według szablonu stworzonego przez dziekanat. 
+          Użytkownicy mają możliwość przypisania punktowego priorytetu do określonych zajęć, 
+          a algorytm przydziela jak najkorzystniejeszy plan dla wszystkich studentów. 
+          Dodatkowo istnieje możliwość zamiany już przypisanych zajęć poprzez giełd̨e zamian.
+          </p>
+        </div>
+
+        <div class="container-fluid" *ngIf="ImportDisplay" >
+          <div class="input-group col-4 mt-3">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="inputGroupFile01"
+                aria-describedby="inputGroupFileAddon01">
+              <label class="custom-file-label" for="inputGroupFile01">Wybierz plik</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-fluid" *ngIf="EditsDisplay">
+          <p>Tu będzie możliwość edycji planu.</p>
+        </div>
+
+        <div class="container-fluid" *ngIf="PasswordDisplay">
+          <div class="row">
+            <div class="col-4" >
+               <!-- Textbox -->
+               <div class="well "  style="background-color:mintcream">
+                <form class="border border-light mt-3 p-1">
+               
+                  <!-- Subject -->
+                  <label>Stare hasło</label>
+                  <input type="password" class="form-control mb-1" placeholder="Old password">
+                  <label>Nowe hasło</label>
+                  <input type="password" class="form-control mb-1" placeholder="New password">
+                  <label>Powtórz nowe hasło</label>
+                  <input type="password" class="form-control mb-1" placeholder="Repeat new password">
+                
+                </form>
+                
+                <form class="border border-light p-1">
+                  <button mdbBtn block="true" class="btn btn-dark" type="submit">Zmień hasło</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+          <div class="container-fluid" *ngIf="GroupsDisplay">
+            <div class="row">
+              <div class="col-6">
+                 <!-- Textbox -->
+                 <div class="well "  style="background-color:mintcream">
+                  <!--Table-->
+<table id="tablePreview" class="table table-hover table-striped table-sm">
+<!--Table head-->
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Imię</th>
+      <th>Nazwisko</th>
+      <th>e-mail</th>
+    </tr>
+  </thead>
+  <!--Table head-->
+  <!--Table body-->
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Małgorzata</td>
+      <td>Śliwińska</td>
+      <td>śliw@agh.edu.pl</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Gabriela</td>
+      <td>Proszczuk</td>
+      <td>prosz@agh.edu.pl</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Daniel</td>
+      <td>Klarenbach</td>
+      <td>klar@agh.edu.pl</td>
+      </tr>
+      <tr>
+        <th scope="row">4</th>
+        <td>Damian</td>
+        <td>Jurkiewicz</td>
+        <td>jurk@agh.edu.pl</td>
+        </tr>
+  </tbody>
+  <!--Table body-->
+</table>
+<!--Table-->
+                </div>
+              </div>
+              <div class="col-6">
+               <!-- Textbox -->
+                <div class="well " style="background-color:antiquewhite">
+                  Schedule
+                </div>
+              </div>
+            </div> 
+          </div>             
+      <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+  </div>
