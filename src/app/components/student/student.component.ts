@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, EventEmitter, Input } from '@angular/core';
 @Component({
   selector: 'app-student',
   templateUrl: './student.component.html',
@@ -7,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudentComponent implements OnInit {
 
+  name:String = "";
   NewExchangeDisplay = false;
   EditExchangeDisplay = false;
   ChoicesDisplay = false;
@@ -14,7 +14,7 @@ export class StudentComponent implements OnInit {
   MainDisplay= true;
   ScheduleDisplay = false;
   constructor() { }
-
+  
   ngOnInit(): void {
     //Toggle Click Function
     $("#menu-toggle").click(function(e) {
@@ -22,6 +22,7 @@ export class StudentComponent implements OnInit {
       $("#wrapper").toggleClass("toggled");
     });
   }
+
   makeNewExchange() {
     this.NewExchangeDisplay = true;
     this.EditExchangeDisplay = false;
@@ -30,6 +31,7 @@ export class StudentComponent implements OnInit {
     this.MainDisplay= false;
     this.ScheduleDisplay = false;
   }
+
   editExchanges() {
     this.NewExchangeDisplay = false;
     this.EditExchangeDisplay = true;
