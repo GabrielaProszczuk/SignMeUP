@@ -9,12 +9,17 @@ export class LoginComponent implements OnInit {
 
   name="";
   constructor() { }
-
+  StudentLogin = false;
+  DeanLogin = false;
   ngOnInit(): void {
   }
-  getVal(val){
-    console.log(val)
-    this.name = val
-  }
 
+  showStudentLogin(){
+    this.StudentLogin = true;
+    this.DeanLogin = false;
+  }
+  showDeanLogin(){
+    this.StudentLogin = false;
+    this.DeanLogin = true;
+  }
 }
