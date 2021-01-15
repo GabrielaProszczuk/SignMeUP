@@ -1,19 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-
+import { UserService } from './../../services/user.service'
 @Component({
   selector: 'app-dean',
   templateUrl: './dean.component.html',
-  styleUrls: ['./dean.component.css']
+  styleUrls: ['./dean.component.css'],
+  providers: [UserService]
 })
 export class DeanComponent implements OnInit {
 
+  user = [{name: 'Pani', surname: 'Jola'}]
   EditsDisplay = false;
   GroupsDisplay = false;
   ImportDisplay = false;
   PasswordDisplay = false;
   MainDisplay= true;
-  constructor() { }
+  constructor(private api:UserService) {
+    this.getMyUser();
+   }
 
+   getMyUser = () =>{
+    this.api.getUser().subscribe(
+      data =>{
+        this.user = data;
+        
+      },
+      error => {
+          console.log(error);
+      }
+    )
+   }
   ngOnInit(): void {
     //Toggle Click Function
     $("#menu-toggle").click(function(e) {

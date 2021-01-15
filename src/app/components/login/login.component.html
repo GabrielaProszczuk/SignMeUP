@@ -1,68 +1,113 @@
-<div class="container">
-	<div class="d-flex justify-content-center h-100">
-		<div class="card">
-			<div class="card-header">
+<div class="container" >
+	<div class="d-flex justify-content-center ">
+		<div class="card " *ngIf="DisplayLogin">
+			<div class="card-header" >
 				<h3>Sign In</h3>
 			</div>
-			<div class="loginOptions" >
-				<span style="text-decoration: none; color: white; margin-left: 20px; margin-top: 10px; margin-right: 20px;">Zaloguj się jako: </span>
-				<button type="button" (click) = "showStudentLogin()" value="Student" class="btn btn-outline-danger" style="text-decoration: none; color: white;">Student</button>
-				<button type="button" (click) = "showDeanLogin()" value="Dean" class="btn btn-outline-danger" style="text-decoration: none; color: white;">Dziekanat</button>
-			</div>
-			<div class="card-body" *ngIf="StudentLogin">
+			<div class="card-body" >
 				<form>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" class="form-control"  placeholder="student's username">
+						<input type="text" class="form-control" name="log" [(ngModel)]="username" placeholder="username" required>
 						
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" class="form-control" placeholder="password">
+						<input type="password" class="form-control" name="log" [(ngModel)]="password" placeholder="password" required>
 					</div>
 					<div class="row align-items-center remember">
 						<input type="checkbox">Remember Me
 					</div>
 					<div class="form-group">
-						<button type="submit" value="Login" class="btn float-right login_btn btn-danger">
-                            <a routerLink="/student" style="text-decoration: none; color: white;">Login</a>
+						<button  (click) = "login()" type="submit" value="Login" class="btn float-right login_btn btn-danger">
+						   <a  style="text-decoration: none; color: white;">Login</a>
+						   
                         </button>
 					</div>
                 </form>
 			</div>
-			<div class="card-body" *ngIf="DeanLogin">
-				<form>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i></span>
-						</div>
-						<input type="text" class="form-control"  placeholder="dean's username">
-						
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-key"></i></span>
-						</div>
-						<input type="password" class="form-control" placeholder="password">
-					</div>
-					<div class="row align-items-center remember">
-						<input type="checkbox">Remember Me
-					</div>
-					<div class="form-group">
-						<button type="submit" value="Login" class="btn float-right login_btn btn-danger">
-                            <a routerLink="/dean" style="text-decoration: none; color: white;">Login</a>
-                        </button>
-					</div>
-                </form>
-			</div>
-			<div class="card-footer" *ngIf="DeanLogin || StudentLogin">
+			<a href="#" *ngIf="DisplayLogin" (click)="showRegister()" style="color:crimson; margin-left: 115px;" > Register your university</a>
+			<div class="card-footer"  >
 				<div class="d-flex justify-content-center">
-					<a href="#">Forgot your password?</a>
-				</div>
+					<a href="#" style="color:darkgray;">Forgot your password? </a> 
+					
+			</div>
+		</div>
+	</div>
+		<div class="card" style=" height: 38rem;" *ngIf="DisplayRegister">
+			<div class="card-header" >
+				<h3>Register</h3>
+			</div>
+			<div class="card-body" >
+				<form>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+						<input type="text" class="form-control" name="log" [(ngModel)]="user.university" placeholder="university" required>
+						
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+						<input type="text" class="form-control" name="log" [(ngModel)]="user.first_name" placeholder="first_name" required>
+						
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+						<input type="text" class="form-control" name="log" [(ngModel)]="user.last_name" placeholder="last_name" required>		
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+						<input type="text" class="form-control" name="log" [(ngModel)]="user.username" placeholder="username" required>		
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+						<input type="email" class="form-control" name="log" [(ngModel)]="user.email" placeholder="email" required>
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+						<input type="password" class="form-control" name="log" [(ngModel)]="user.password1" placeholder="password1" required>
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+						<input type="password" class="form-control" name="log" [(ngModel)]="user.password2" placeholder="password2" required>
+					</div>
+					
+					<div class="row align-items-center remember">
+						<input type="checkbox">Remember Me
+					</div>
+					<div class="form-group">
+						<button  (click) = "register()" type="submit" value="Login" class="btn float-right login_btn btn-danger">
+						   <a  style="text-decoration: none; color: white;">register</a>
+						   
+                        </button>
+					</div>
+                </form>
+			</div>
+			<a href="#" *ngIf="DisplayRegister" (click)="showLogin()" style="color:crimson; margin-left: 147px; " > Back to login</a>
+			
+			<div class="card-footer"  >
+				<div class="d-flex justify-content-center">
+					<a href="#" style="color:darkgray;">Forgot your password? </a> 
+					
+			</div>
+		
             </div>
 		</div>
 	</div>

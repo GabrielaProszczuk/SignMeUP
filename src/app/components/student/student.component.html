@@ -34,7 +34,7 @@
               </button>
               <div class="dropdown-menu">
                 <button class="list-group-item list-group-item-action bg-light" (click)="changePassword()">Zmień hasło</button>
-                <a routerLink="/" class="list-group-item list-group-item-action bg-light">Wyloguj się</a>
+                <a routerLink="/" (click) = "logout()" class="list-group-item list-group-item-action bg-light">Wyloguj się</a>
               </div>
             </div>
     
@@ -286,49 +286,49 @@
                  
                     <!-- Subject -->
                     <label>Przedmiot</label>
-                    <select class="browser-default custom-select mb-2">
+                    <select required [(ngModel)]="exchange.classEx" class="browser-default custom-select mb-2" name="exchange">
                       <option value="" disabled>Choose option</option>
-                      <option value="1" selected>Algebra</option>
-                      <option value="2">Wstęp do informatyki</option>
-                      <option value="3">Podstawy elektroniki</option>
-                      <option value="4">Analiza</option>
+                      <option value="Algebra" selected>Algebra</option>
+                      <option value="Wstęp do informatyki">Wstęp do informatyki</option>
+                      <option value="Podstawy elektroniki">Podstawy elektroniki</option>
+                      <option value="Analiza">Analiza</option>
                     </select>
                   
                   </form>
                   <form class="border border-light p-1">
                     <label>Zamiana z</label>
-                    <select class="browser-default custom-select mb-4">
+                    <select [(ngModel)]="exchange.fromDate" required class="browser-default custom-select mb-4" name="exchange">
                       <option value="" disabled>Choose option</option>
-                      <option value="1" selected>Poniedziałek</option>
-                      <option value="2">Wtorek</option>
-                      <option value="3">Środa</option>
-                      <option value="4">Czwartek</option>
-                      <option value="5">Piątek</option>
+                      <option value="Poniedziałek" selected>Poniedziałek</option>
+                      <option value="Wtorek">Wtorek</option>
+                      <option value="Środa">Środa</option>
+                      <option value="Czwartek">Czwartek</option>
+                      <option value="Piątek">Piątek</option>
                     </select>
-                    <input type="time" id="appt" name="appt"
+                    <input [(ngModel)]="exchange.fromHour" type="time" id="appt" name="exchange"
                     min="08:00" max="20:00" required>
                   </form>
 
                   <form class="border border-light p-1">
                     <label>Zamiana na</label>
-                    <select class="browser-default custom-select mb-4">
+                    <select required [(ngModel)]="exchange.toDate" class="browser-default custom-select mb-4" name="exchange">
                       <option value="" disabled>Choose option</option>
-                      <option value="1" selected>Poniedziałek</option>
-                      <option value="2">Wtorek</option>
-                      <option value="3">Środa</option>
-                      <option value="4">Czwartek</option>
-                      <option value="5">Piątek</option>
+                      <option value="Poniedziałek" selected>Poniedziałek</option>
+                      <option value="Wtorek">Wtorek</option>
+                      <option value="Środa">Środa</option>
+                      <option value="Czwartek">Czwartek</option>
+                      <option value="Piątek">Piątek</option>
                     </select>
-                    <input type="time" id="appt" name="appt"
+                    <input [(ngModel)]="exchange.toHour" type="time" id="appt" name="exchange"
                     min="08:00" max="20:00" required>
                   </form>
                   <form class="border border-light p-1">
                       <label>Priorytet (1-5) :</label>
                       <div></div>
-                      <input type="number" id="quantity" name="quantity" min="1" max="5">
+                      <input [(ngModel)]="exchange.priority" type="number" id="quantity" name="exchange" min="1" max="5" required>
                   </form>
                   <form class="border border-light p-1">
-                    <button mdbBtn block="true" class="btn btn-dark" type="submit">Złóż podanie</button>
+                    <button (click)="addExchange()" mdbBtn block="true" class="btn btn-dark" type="submit">Złóż podanie</button>
                   </form>
                 </div>
               </div>
@@ -376,44 +376,27 @@
   <!--Table head-->
     <thead>
       <tr>
-        <th>Priorytet</th>
+        <th>Id</th>
         <th>Przedmiot</th>
-        <th>Zamiana z</th>
-        <th>Zamiana na</th>
+        <th>Z dnia</th>
+        <th>Z godziny</th>
+        <th>Na dzień</th>
+        <th>Na godzinę</th>
+        <th>Priorytet</th>
         <th></th>
       </tr>
     </thead>
     <!--Table head-->
     <!--Table body-->
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Analiza</td>
-        <td>Wt. 17:00</td>
-        <td>Śr. 9:30</td>
-        <td class="text-center">
-          <button class="btn-xs btn-dark p-1" type="submit">Edytuj</button>
-          <button class="btn-xs btn-danger p-1" type="submit">Usuń</button>
+      <tr *ngFor="let exchange of exchanges">
+        <td *ngFor = "let column of headers">
+            {{ exchange[column] }}
         </td>
-      </tr>
-      <tr>
-        <th scope="row">4</th>
-        <td>Algebra</td>
-        <td>Pon. 8:00</td>
-        <td>Czw. 14:30</td>
-        <td class="text-center">
-          <button class="btn-xs btn-dark p-1" type="submit">Edytuj</button>
-          <button class="btn-xs btn-danger p-1" type="submit">Usuń</button>
+        <td>
+            <button class="btn btn-sm float-right login_btn btn-danger">x</button>
         </td>
-      <tr>
-        <th scope="row">2</th>
-        <td>Podstawy elektroniki</td>
-        <td>Śr. 17:00</td>
-        <td>Czw. 11:00</td>
-        <td class="text-center">
-          <button class="btn-xs btn-dark p-1" type="submit">Edytuj</button>
-          <button class="btn-xs btn-danger p-1" type="submit">Usuń</button>
-        </td>
+    </tr>
     </tbody>
     <!--Table body-->
   </table>

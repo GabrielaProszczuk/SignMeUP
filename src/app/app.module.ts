@@ -8,6 +8,11 @@ import { NavigationComponent } from './components/layout/navigation/navigation.c
 import { LoginComponent } from './components/login/login.component';
 import { StudentComponent } from './components/student/student.component';
 import { DeanComponent } from './components/dean/dean.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AdminComponent } from './components/admin/admin.component';
+import { FormsModule } from '@angular/forms';
+import { JwtModule } from '@auth0/angular-jwt';
+import { JwtService } from './services/jwt.service';
 
 @NgModule({
   declarations: [
@@ -16,13 +21,30 @@ import { DeanComponent } from './components/dean/dean.component';
     NavigationComponent,
     LoginComponent,
     StudentComponent,
-    DeanComponent
+    DeanComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    HttpClientModule,
+    AppRoutingModule,
+    FormsModule,
+  //  JwtModule.forRoot({
+     // config: {
+       // tokenGetter: function  tokenGetter() {
+         //    return     localStorage.getItem('access_token');},
+           //  allowedDomains: ['localhost:4200'],
+    //    disallowedRoutes: []
+   //   }
+  //  })
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

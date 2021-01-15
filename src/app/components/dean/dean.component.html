@@ -2,7 +2,12 @@
   <div class="d-flex" id="wrapper">
       <!-- Sidebar -->
       <div class="bg-light border-right" id="sidebar-wrapper">
-        <button class="list-group-item list-group-item-action bg-light font-weight-bold" (click)="showMain()">Jolanta Zwietu </button>
+        <div class="list-group-item list-group-item-action bg-light font-weight-bold" (click)="showMain()" >
+            <ul  *ngFor="let u of user"> 
+              <span>{{ u.name }}  {{ u.surname }}</span>
+            </ul>
+          
+        </div>
         <div class="list-group list-group-flush">
           <button class="list-group-item list-group-item-action bg-light" (click)="showImport()">Importuj plan zajęć</button>
           <button class="list-group-item list-group-item-action bg-light" (click)="showEdits()">Edytuj plan zajęć</button>
