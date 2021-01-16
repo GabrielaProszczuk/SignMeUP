@@ -10,14 +10,13 @@ import { UserService } from './../../services/user.service';
 })
 export class LoginComponent implements OnInit {
 
-  username = '';
+  email = '';
   password = '';
+  user = {email: '', password1: '', password2: '', university: ''}
   constructor(private api:UserService, private router: Router) { }
   DisplayRegister = false;
   DisplayLogin = true;
-  user;
-  ngOnInit(): void {
-    this.user = {first_name: '', last_name: '', username: '', email: '', university: '', password1: '', password2: '', group: 1}
+  ngOnInit(): void {   
   }
 
   showLogin(){
@@ -30,7 +29,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    this.api.login(this.username, this.password).subscribe(
+    this.api.login(this.email, this.password).subscribe(
       response => {
         if(response.user.groups == 1){
          this.router.navigate(['/admin'])

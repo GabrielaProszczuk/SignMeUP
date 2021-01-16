@@ -1,30 +1,30 @@
 <div>
     <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
-        <div class="bg-light border-right" id="sidebar-wrapper">
-          <div class="list-group-item list-group-item-action bg-light font-weight-bold" (click)="showMain()" >
-           <div (click)="showMain()"> {{ token.email }}</div>
+        <div class="bg-dark border-right" id="sidebar-wrapper">
+          <div class="list-group-item list-group-item-action bg-dark font-weight-bold text-light" (click)="showMain()" >
+           <div (click)="showMain()"> {{ token.email }} </div>
           </div>
           <div class="list-group list-group-flush">
-            <button (click)="showUsers()"class="list-group-item list-group-item-action bg-light" (click)="showUsers()">See admins</button>
+            <button (click)="showUsers()"class="list-group-item list-group-item-action bg-dark text-light" (click)="showUserss()">See admins</button>
     
             <div class="btn-group dropright">
-              <button type="button" class="list-group-item list-group-item-action btn dropdown-toggle bg-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button type="button" class="list-group-item list-group-item-action btn dropdown-toggle bg-dark text-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Theme
               </button>
               <div class="dropdown-menu">
-                <button class="list-group-item list-group-item-action bg-light" >Day mode</button>
-                <button (click)="toDarkMode()" class="list-group-item list-group-item-action bg-light">Night mode</button>
+                <button (click)="toLightMode()" class="list-group-item list-group-item-action bg-dark text-light" >Day mode</button>
+                <button  class="list-group-item list-group-item-action bg-dark text-light">Night mode</button>
               </div>
             </div>
     
             <div class="btn-group dropright">
-              <button type="button" class="btn dropdown-toggle list-group-item list-group-item-action bg-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button type="button" class="btn dropdown-toggle list-group-item list-group-item-action bg-dark text-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Account
               </button>
               <div class="dropdown-menu">
-                <button (click)="showPassword()" class="list-group-item list-group-item-action bg-light" (click)="changePassword()">Change password</button>
-                <a (click)="loggout()" class="list-group-item list-group-item-action bg-light">Loggout</a>
+                <button (click)="showPassword()" class="list-group-item list-group-item-action bg-dark text-light" (click)="changePassword()">Change password</button>
+                <a (click)="loggout()" class="list-group-item list-group-item-action bg-dark text-light">Loggout</a>
               </div>
             </div>
     
@@ -32,15 +32,15 @@
         </div>
         <!-- /#sidebar-wrapper -->
         <!-- Page Content -->
-        <div id="page-content-wrapper">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class="bg-dark text-light" id="page-content-wrapper">
+          <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
             <button class="btn btn-danger" id="menu-toggle">Menu</button>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
           </nav>
   
-          <div class="container-fluid" *ngIf="MainDisplay" >
+          <div class="container-fluid bg-dark text-light" *ngIf="MainDisplay" >
             <h1 class="mt-4">SignMeUp</h1>
             <p>Celem projektu jest implementacja <code>SignMeUp</code> - platformy internetowej służacej do tworzenia 
             spersonalizowanego planu zajęć według szablonu stworzonego przez dziekanat. 
@@ -50,14 +50,14 @@
             </p>
           </div>
   
-          <div class="container-fluid" *ngIf="UsersDisplay">
-            <div class="row" style="margin-left: 20px; margin-top: 10px;">
-                <div class="d-flex justify-content-center" style=" margin-right: 10px;">
-                    <div class="card">
-                    <div class="card-header">
+          <div class="container-fluid bg-dark text-light" *ngIf="UsersDisplay">
+            <div class="row bg-dark" style="margin-left: 20px; margin-top: 10px;">
+                <div class="d-flex justify-content-center bg-dark " style=" margin-right: 10px;">
+                    <div class="card bg-dark">
+                    <div class="card-header bg-dark">
                         <h5>Deparatment's admins</h5>
                     </div>
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-dark text-light table-hover">
                     <thead>
                     <tr>
                         <th *ngFor="let column of headers" >
@@ -78,40 +78,40 @@
                 </table>
                 </div>
                 </div>
-                    <div class="d-flex justify-content-center h-50" style=" margin-right: 10px;">
-                        <div class="card">
-                            <div class="card-header">
+                    <div class="d-flex bg-dark justify-content-center h-50" style=" margin-right: 10px;">
+                        <div class="card bg-dark">
+                            <div class="card-header bg-dark">
                                 <h5>Add user</h5>
                             </div>
                     <div class="card-body">
                         <form>
-                
+                            
                             <div class="input-group form-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input [(ngModel)] ="registeredUser.email" type="text" class="form-control"  name="student" placeholder="email" required>
-                         
+                                <input [(ngModel)] ="registeredUser.email"  style="background-color:#333" type="text" class="form-control text-light"  name="student" placeholder="email" required>
+                                
                             </div>
                             
-                            <form class="border border-light p-1">
+                            <form class="border border-dark p-1">
                               <label>Choose department</label>
-                              <select [(ngModel)]="registeredUser.department" class="browser-default custom-select mb-4"  name="student">
-                                <option value="" disabled>Choose department</option>
-                                 <option *ngFor="let department of departments" [value]="department.id">{{department.name}}</option>
+                              <select [(ngModel)]="registeredUser.department" class="browser-default bg-dark text-light custom-select mb-4"  name="student">
+                                <option class="bg-dark" value=""  disabled selected>Choose department</option>
+                                 <option  class="bg-dark" *ngFor="let department of departments" [value]="department.id">{{department.name}}</option>
                               </select>
                             </form>
-
+                            
                             <div class="input-group form-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-key"></i></span>
                                 </div>
-                                <input [(ngModel)] ="registeredUser.password" type="password" class="form-control" name="student" placeholder="password" required>
+                                <input [(ngModel)] ="registeredUser.password"  style="background-color:#333" type="password" class="form-control text-light" name="student" placeholder="password" required>
                             </div>
             
                             <div class="form-group">
-                                <button (click) = "addUser()" type="submit"  class="btn float-right login_btn btn-danger">
-                                    <a routerLink="/admin" style="text-decoration: none; color: white;">Register</a>
+                                <button (click) = "addUser()" type="submit"  style="background-color:#333" class="btn float-right border-light login_btn btn-danger">
+                                    <a  style="text-decoration: none; color: white;">Register</a>
                                 </button>
                             </div>
                         </form>
@@ -121,24 +121,24 @@
             </div>
           </div>
   
-          <div class="container-fluid" *ngIf="PasswordDisplay">
+          <div class="container-fluid bg-dark" *ngIf="PasswordDisplay">
             <div class="row">
               <div class="col-4" >
                  <!-- Textbox -->
                  <div class="well "  >
-                  <form class="border border-light mt-3 p-1">
+                  <form class="border border-dark mt-3 p-1">
                  
                     <!-- Subject -->
                     <label>Old password</label>
-                    <input type="password" style="background-color:antiquewhite" class="form-control rounded mb-1" placeholder="Old password">
+                    <input type="password" style="background-color:#333" class="form-control rounded mb-1 text-light" placeholder="Old password">
                     <label>New password</label>
-                    <input type="password" style="background-color:antiquewhite" class="form-control rounded mb-1" placeholder="New password">
+                    <input type="password" style="background-color:#333" class="form-control rounded mb-1 text-light" placeholder="New password">
                     <label>Repeat new password</label>
-                    <input type="password" style="background-color:antiquewhite" class="form-control rounded mb-1" placeholder="Repeat new password">
+                    <input type="password" style="background-color:#333" class="form-control rounded mb-1 text-light" placeholder="Repeat new password">
                   
                   </form>
                   
-                  <form class="border border-light p-1">
+                  <form class="border border-dark p-1">
                     <button mdbBtn block="true" class="btn btn-dark" type="submit">Change password</button>
                   </form>
                 </div>

@@ -13,6 +13,9 @@ import { AdminComponent } from './components/admin/admin.component';
 import { FormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
 import { JwtService } from './services/jwt.service';
+import { StudentDarkComponent } from './components/student-dark/student-dark.component';
+import { DeanDarkComponent } from './components/dean-dark/dean-dark.component';
+import { AdminDarkComponent } from './components/admin-dark/admin-dark.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { JwtService } from './services/jwt.service';
     LoginComponent,
     StudentComponent,
     DeanComponent,
-    AdminComponent
+    AdminComponent,
+    StudentDarkComponent,
+    DeanDarkComponent,
+    AdminDarkComponent
   ],
   imports: [
     BrowserModule,

@@ -10,7 +10,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" class="form-control" name="log" [(ngModel)]="username" placeholder="username" required>
+						<input type="text" class="form-control" name="log" [(ngModel)]="email" placeholder="email" required>
 						
 					</div>
 					<div class="input-group form-group">
@@ -38,7 +38,7 @@
 			</div>
 		</div>
 	</div>
-		<div class="card" style=" height: 38rem;" *ngIf="DisplayRegister">
+		<div class="card" style=" height: 30rem;" *ngIf="DisplayRegister">
 			<div class="card-header" >
 				<h3>Register</h3>
 			</div>
@@ -51,25 +51,7 @@
 						<input type="text" class="form-control" name="log" [(ngModel)]="user.university" placeholder="university" required>
 						
 					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i></span>
-						</div>
-						<input type="text" class="form-control" name="log" [(ngModel)]="user.first_name" placeholder="first_name" required>
-						
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i></span>
-						</div>
-						<input type="text" class="form-control" name="log" [(ngModel)]="user.last_name" placeholder="last_name" required>		
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i></span>
-						</div>
-						<input type="text" class="form-control" name="log" [(ngModel)]="user.username" placeholder="username" required>		
-					</div>
+					
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>

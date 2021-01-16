@@ -1,40 +1,40 @@
 <div>
     <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
-        <div class="bg-light border-right " id="sidebar-wrapper">
-          <button class="list-group-item list-group-item-action bg-light font-weight-bold" (click)="showMain()">{{ token.email }}</button>
-          <div class="list-group list-group-flush">
-            <button class="list-group-item list-group-item-action bg-light" (click)="showSchedule()">Wyświetl plan</button>
-            <button class="list-group-item list-group-item-action bg-light" (click)="showChoices()">Wybór przedmiotów</button>
+        <div class="bg-dark border-right " id="sidebar-wrapper">
+          <button class="list-group-item list-group-item-action bg-dark text-light font-weight-bold" (click)="showMain()">Daniel Klarenbum</button>
+          <div class="list-group list-group-flush" >
+            <button class="list-group-item list-group-item-action bg-dark text-light " (click)="showSchedule()">Wyświetl plan</button>
+            <button class="list-group-item list-group-item-action bg-dark text-light" (click)="showChoices()">Wybór przedmiotów</button>
     
         
             <div class="btn-group dropright">
-              <button type="button" class="list-group-item list-group-item-action btn dropdown-toggle bg-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button type="button" class="list-group-item list-group-item-action btn dropdown-toggle bg-dark text-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Giełda zamian
               </button>
               <div class="dropdown-menu">
-                <button class="list-group-item list-group-item-action bg-light" (click)="makeNewExchange()">Złóż podanie</button>
-                <button class="list-group-item list-group-item-action bg-light" (click)="editExchanges()">Edytuj/usuń podanie</button>
+                <button class="list-group-item list-group-item-action bg-dark text-light" (click)="makeNewExchange()">Złóż podanie</button>
+                <button class="list-group-item list-group-item-action bg-dark text-light" (click)="editExchanges()">Edytuj/usuń podanie</button>
               </div>
             </div>
     
-            <div class="btn-group dropright">
-              <button type="button" class="list-group-item list-group-item-action btn dropdown-toggle bg-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="btn-group dropright" >
+              <button type="button" class="list-group-item list-group-item-action btn dropdown-toggle bg-dark text-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Motyw
               </button>
               <div class="dropdown-menu">
-                <button class="list-group-item list-group-item-action bg-light" >Dzienny</button>
-                <button (click) = "toDarkMode()"class="list-group-item list-group-item-action bg-light">Nocny</button>
+                <button (click) = "toLightMode()" class="list-group-item list-group-item-action text-light bg-dark" >Dzienny</button>
+                <button  class="list-group-item list-group-item-action text-light bg-dark">Nocny</button>
               </div>
             </div>
     
             <div class="btn-group dropright">
-              <button type="button" class="btn dropdown-toggle list-group-item list-group-item-action bg-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button type="button" class="btn dropdown-toggle list-group-item list-group-item-action text-light bg-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Konto
               </button>
               <div class="dropdown-menu">
-                <button class="list-group-item list-group-item-action bg-light" (click)="changePassword()">Zmień hasło</button>
-                <a routerLink="/" (click) = "logout()" class="list-group-item list-group-item-action bg-light">Wyloguj się</a>
+                <button class="list-group-item list-group-item-action text-light bg-dark" (click)="changePassword()">Zmień hasło</button>
+                <a  (click) = "logout()" class="list-group-item list-group-item-action text-light bg-dark">Wyloguj się</a>
               </div>
             </div>
     
@@ -42,8 +42,8 @@
         </div>
         <!-- /#sidebar-wrapper -->
         <!-- Page Content -->
-        <div id="page-content-wrapper">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <div class=" bg-dark "id="page-content-wrapper">
+          <nav class="navbar navbar-expand-lg navbar-light text-light bg-dark border-bottom">
             <button class="btn btn-danger" id="menu-toggle">Menu</button>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -59,7 +59,7 @@
               </div>
           </div>
           </nav>
-          <div class="container-fluid" *ngIf="MainDisplay" >
+          <div class="container-fluid text-light bg-dark " *ngIf="MainDisplay" >
             <h1 class="mt-4">SignMeUp</h1>
             <p>Celem projektu jest implementacja <code>SignMeUp</code> - platformy internetowej służacej do tworzenia 
             spersonalizowanego planu zajęć według szablonu stworzonego przez dziekanat. 
@@ -69,7 +69,7 @@
             </p>
           </div>
 
-          <div class="container-fluid" *ngIf="ScheduleDisplay" >
+          <div class="container-fluid bg-dark" *ngIf="ScheduleDisplay" >
             <style type="text/css">
               .tg  {border-collapse:collapse;border-spacing:0;}
               .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
@@ -277,40 +277,40 @@
             <p>Tu będzie możliwośc wyboru przedmiotów.</p>
           </div>
 
-          <div class="container-fluid text-dark border-light rounded" *ngIf="NewExchangeDisplay">
+          <div class="container-fluid text-light border-dark rounded" *ngIf="NewExchangeDisplay">
             <div class="row">
               <div class="col-4">
                  <!-- Textbox -->
-                 <div class="well border-light rounded text-dark" >
-                  <form class="border border-light rounded mt-3 mb-1 p-2"  >
+                 <div class="well border-dark rounded text-light" >
+                  <form class="border border-dark rounded mt-3 mb-1 p-2"  >
                  
                     <!-- Subject -->
                     <label>From</label>
-                    <select required [(ngModel)]="exchange.from" style="background-color: antiquewhite" class="browser-default text-dark custom-select mb-2" name="exchange">
+                    <select required [(ngModel)]="exchange.from" style="background-color: #333" class="browser-default text-light custom-select mb-2" name="exchange">
                       <option value="" disabled>Choose option</option>
                       <option  class="bg-dark text-light" *ngFor="let subject of subjects" style="background-color: #333;" [value]="subject.id">{{subject.name}}</option>
                     </select>
                     <label>To</label>
-                    <select required [(ngModel)]="exchange.to" style="background-color: antiquewhite" class="browser-default text-dark custom-select mb-2" name="exchange">
+                    <select required [(ngModel)]="exchange.to" style="background-color:  #333" class="browser-default text-light custom-select mb-2" name="exchange">
                       <option value="" disabled>Choose option</option>
                       <option  class="bg-dark text-light" *ngFor="let subject of subjects" style="background-color: #333;" [value]="subject.id">{{subject.name}}</option>
                     </select>
                   </form>
                   
                   
-                  <form class="border border-light rounded p-2  mb-1">
+                  <form class="border border-dark rounded p-2  mb-1">
                       <label>Priority (1-5) :</label>
                       <div></div>
-                      <input [(ngModel)]="exchange.priority" class="text-dark rounded" style="background-color:antiquewhite" type="number" id="quantity" name="exchange" min="1" max="5" required>
+                      <input [(ngModel)]="exchange.priority" class="text-light rounded" style="background-color: #333" type="number" id="quantity" name="exchange" min="1" max="5" required>
                   </form>
-                  <form class="border border-light p-1">
-                    <button mdbBtn block="true" (click)="addExchange()"class="btn btn-light border-light" type="submit">Add application</button>
+                  <form class="border border-dark p-1">
+                    <button mdbBtn block="true" (click)="addExchange()"class="btn btn-dark border-dark" type="submit">Add application</button>
                   </form>
                 </div>
               </div>
-            <div class="col-8">
+              <div class="col-8">
                <!-- Textbox -->
-                <div class="well mt-3 rounded " style="background-color:antiquewhite">
+                <div class="well mt-3 rounded" style="background-color: #333;">
                   Schedule
                 </div>
               </div>
@@ -321,21 +321,21 @@
             <div class="row">
               <div class="col-4" >
                  <!-- Textbox -->
-                 <div class="well "  >
-                  <form class="border border-light mt-3 p-1">
+                 <div class="well text-light rounded"  >
+                  <form class="border border-dark mt-3  p-1">
                  
                     <!-- Subject -->
-                    <label>Stare hasło</label>
-                    <input type="password" style="background-color:antiquewhite" class="form-control rounded mb-1" placeholder="Old password">
-                    <label>Nowe hasło</label>
-                    <input type="password" style="background-color:antiquewhite" class="form-control rounded mb-1" placeholder="New password">
-                    <label>Powtórz nowe hasło</label>
-                    <input type="password" style="background-color:antiquewhite" class="form-control rounded mb-1" placeholder="Repeat new password">
+                    <label>Old password</label>
+                    <input type="password" class="form-control mb-2 text-light" style="background-color:#333" placeholder="Old password">
+                    <label>New password</label>
+                    <input type="password" class="form-control mb-2 text-light" style="background-color:#333" placeholder="New password">
+                    <label>Repeat new password</label>
+                    <input type="password" class="form-control mb-2 text-light" style="background-color:#333" placeholder="Repeat new password">
                   
                   </form>
                   
-                  <form class="border border-light p-1">
-                    <button mdbBtn block="true" class="btn btn-dark" type="submit">Zmień hasło</button>
+                  <form class="border border-dark p-1">
+                    <button mdbBtn block="true" class="btn btn-dark border-light" type="submit">Change password</button>
                   </form>
                 </div>
               </div>
@@ -346,9 +346,9 @@
               <div class="row">
                 <div class="col-6">
                    <!-- Textbox -->
-                   <div class="well "  style="background-color:mintcream">
+                   <div class="well "  style="background-color: #333">
                     <!--Table-->
-<table id="tablePreview" class="table table-hover table-striped table-sm mt-3">
+<table id="tablePreview" class="table table-hover table-dark  table-striped table-sm mt-3">
   <!--Table head-->
     <thead>
       <tr>
@@ -367,7 +367,7 @@
             {{ exchange[column] }}
         </td>
         <td>
-            <button (click)="deleteExchange(exchange.id)" class="btn btn-sm float-right login_btn btn-danger">x</button>
+            <button (click) ="deleteExchange(exchange.id)" class="btn btn-sm float-right login_btn btn-danger">x</button>
         </td>
     </tr>
     </tbody>
@@ -378,7 +378,7 @@
                 </div>
                 <div class="col-6">
                  <!-- Textbox -->
-                  <div class="well mt-3 rounded" style="background-color:antiquewhite">
+                  <div class="well rounded mt-3 text-light" style="background-color: #333">
                     Schedule
                   </div>
                 </div>
@@ -389,5 +389,4 @@
       </div>
       <!-- /#wrapper -->
     </div>
-    </div>
-
+  </div>
