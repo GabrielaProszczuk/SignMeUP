@@ -14,44 +14,45 @@ export class StudentComponent implements OnInit {
   points = 40;
   name:String = "";
   chosenField = {id:1, name:'', year:null};
-  fields = [{id:1, name:'Informatyka'}, {id:2, name:'Automatyka'}];
+  fields = [{id:1, name:'Computer Science'}, {id:2, name:'Automatics'}];
   exchange ={id: '1', unwanted_subject_id: '', wanted_subject_id: '', priority: '4'};
-  exchanges = [{id: '1', unwanted_subject_id: 'Algebra', wanted_subject_id: 'Analiza', priority: '4'}];
-  subjects = [{id: '11', name: 'Algebra', day:'MONDAY', start_time: '09:30', end_time:'11:00'}];
+  exchanges = [{id: '1', unwanted_subject_id: 'Algebra FRIDAY 8:00-9:30', wanted_subject_id: 'Algebra MONDAY 8:00-9:30', priority: '4'}];
+  subjects = [{id: '11', name: 'Algebra', day:'MONDAY', start_time: '09:30', end_time:'11:00'},
+  {id: '12', name: 'Algebra', day:'THURSDAY', start_time: '12:30', end_time:'14:00'}];
   headers = ['id', 'unwanted_subject_id', 'wanted_subject_id', 'priority'];
   days = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY','SUNDAY'];
   indexes = [0,1,2,3,4,5,6,7];
 
   myClasses = [
-  {name: 'Matematyka', lecturer: '',description:'', day: 'WEDNESDAY', type: {key: 'w', type: 'lecture'}, start_time: '8:00', end_time: '9:30', field_of_study: ''},
-  {name: 'Geografia', lecturer: '',description:'', day: 'MONDAY', type: {key: 'l', type: 'laboratory'}, start_time: '8:00', end_time: '9:30', field_of_study: ''},
-  {name: 'Muzyka', lecturer: '',description:'', day: 'FRIDAY', type: {key: 'l', type: 'laboratory'}, start_time: '8:00', end_time: '9:30', field_of_study: ''},
-  {name: 'Język Polski', lecturer: '',description:'', day: 'TUESDAY', type: {key: 'w', type: 'lecture'}, start_time: '9:30', end_time: '11:00', field_of_study: ''},
-  {name: 'Język Angielski', lecturer: '',description:'', day: 'WEDNESDAY', type: {key: 'l', type: 'laboratory'}, start_time: '11:00', end_time: '12:30', field_of_study: ''},
-  {name: 'Fizyka super zaawansowana', lecturer: '',description:'', day: 'THURSDAY', type: {key: 'c', type: 'class'}, start_time: '14:00', end_time: '15:30', field_of_study: ''},
-  {name: 'Chemia też super zaawansowana', lecturer: '',description:'', day: 'FRIDAY', type: {key: 'l', type: 'laboratory'}, start_time: '17:00', end_time: '18:30', field_of_study: ''},
-  {name: 'WOS bardzo nudny', lecturer: '',description:'', day: 'WEDNESDAY', type: {key: 'c', type: 'class'}, start_time: '12:30', end_time: '14:00', field_of_study: ''},
-  {name: 'Historia i społeczeństwo', lecturer: '',description:'', day: 'TUESDAY', type: {key: 'c', type: 'class'}, start_time: '11:00', end_time: '12:30', field_of_study: ''}];
+  {name: 'Mathematics', lecturer: '',description:'', day: 'WEDNESDAY', type: {key: 'w', type: 'lecture'}, start_time: '8:00', end_time: '9:30', field_of_study: ''},
+  {name: 'UNIX Systems', lecturer: '',description:'', day: 'MONDAY', type: {key: 'l', type: 'laboratory'}, start_time: '8:00', end_time: '9:30', field_of_study: ''},
+  {name: 'Algebra', lecturer: '',description:'', day: 'FRIDAY', type: {key: 'l', type: 'laboratory'}, start_time: '8:00', end_time: '9:30', field_of_study: ''},
+  {name: 'Electronics', lecturer: '',description:'', day: 'TUESDAY', type: {key: 'w', type: 'lecture'}, start_time: '9:30', end_time: '11:00', field_of_study: ''},
+  {name: 'Physics', lecturer: '',description:'', day: 'WEDNESDAY', type: {key: 'l', type: 'laboratory'}, start_time: '11:00', end_time: '12:30', field_of_study: ''},
+  {name: 'Internet of things', lecturer: '',description:'', day: 'THURSDAY', type: {key: 'c', type: 'class'}, start_time: '14:00', end_time: '15:30', field_of_study: ''},
+  {name: 'Artificial Intelligence', lecturer: '',description:'', day: 'FRIDAY', type: {key: 'l', type: 'laboratory'}, start_time: '17:00', end_time: '18:30', field_of_study: ''},
+  {name: 'Design Patterns', lecturer: '',description:'', day: 'WEDNESDAY', type: {key: 'c', type: 'class'}, start_time: '12:30', end_time: '14:00', field_of_study: ''},
+  {name: 'Computer networks', lecturer: '',description:'', day: 'TUESDAY', type: {key: 'c', type: 'class'}, start_time: '11:00', end_time: '12:30', field_of_study: ''}];
 
   allClasses = [
-    {name: 'Matematyka', lecturer: '',description:'', day: 'MONDAY', type: {key: 'w', type: 'lecture'}, start_time: '8:00', end_time: '9:30', field_of_study: ''},
-    {name: 'Geografia', lecturer: '',description:'', day: 'FRIDAY', type: {key: 'l', type: 'laboratory'}, start_time: '8:00', end_time: '9:30', field_of_study: ''},
-    {name: 'Muzyka', lecturer: '',description:'', day: 'MONDAY', type: {key: 'l', type: 'laboratory'}, start_time: '8:00', end_time: '9:30', field_of_study: ''},
-    {name: 'Język Polski', lecturer: '',description:'', day: 'TUESDAY', type: {key: 'w', type: 'lecture'}, start_time: '9:30', end_time: '11:00', field_of_study: ''},
-    {name: 'Język Angielski', lecturer: '',description:'', day: 'WEDNESDAY', type: {key: 'l', type: 'laboratory'}, start_time: '11:00', end_time: '12:30', field_of_study: ''},
-    {name: 'Fizyka super zaawansowana', lecturer: '',description:'', day: 'THURSDAY', type: {key: 'c', type: 'class'}, start_time: '14:00', end_time: '15:30', field_of_study: ''},
-    {name: 'Chemia też super zaawansowana', lecturer: '',description:'', day: 'FRIDAY', type: {key: 'l', type: 'laboratory'}, start_time: '17:00', end_time: '18:30', field_of_study: ''},
-    {name: 'WOS bardzo nudny', lecturer: '',description:'', day: 'THURSDAY', type: {key: 'c', type: 'class'}, start_time: '12:30', end_time: '14:00', field_of_study: ''},
-    {name: 'Historia i społeczeństwo', lecturer: '',description:'', day: 'TUESDAY', type: {key: 'c', type: 'class'}, start_time: '11:00', end_time: '12:30', field_of_study: ''},
-    {name: 'Matematyka', lecturer: '',description:'', day: 'WEDNESDAY', type: {key: 'w', type: 'lecture'}, start_time: '8:00', end_time: '9:30', field_of_study: ''},
-    {name: 'Geografia', lecturer: '',description:'', day: 'MONDAY', type: {key: 'l', type: 'laboratory'}, start_time: '8:00', end_time: '9:30', field_of_study: ''},
-    {name: 'Muzyka', lecturer: '',description:'', day: 'THURSDAY', type: {key: 'l', type: 'laboratory'}, start_time: '8:00', end_time: '9:30', field_of_study: ''},
-    {name: 'Język Polski', lecturer: '',description:'', day: 'MONDAY', type: {key: 'w', type: 'lecture'}, start_time: '9:30', end_time: '11:00', field_of_study: ''},
-    {name: 'Język Angielski', lecturer: '',description:'', day: 'WEDNESDAY', type: {key: 'l', type: 'laboratory'}, start_time: '11:00', end_time: '12:30', field_of_study: ''},
-    {name: 'Fizyka super zaawansowana', lecturer: '',description:'', day: 'THURSDAY', type: {key: 'c', type: 'class'}, start_time: '14:00', end_time: '15:30', field_of_study: ''},
-    {name: 'Chemia też super zaawansowana', lecturer: '',description:'', day: 'FRIDAY', type: {key: 'l', type: 'laboratory'}, start_time: '17:00', end_time: '18:30', field_of_study: ''},
-    {name: 'WOS bardzo nudny', lecturer: '',description:'', day: 'TUESDAY', type: {key: 'c', type: 'class'}, start_time: '12:30', end_time: '14:00', field_of_study: ''},
-    {name: 'Historia i społeczeństwo', lecturer: '',description:'', day: 'TUESDAY', type: {key: 'c', type: 'class'}, start_time: '11:00', end_time: '12:30', field_of_study: ''}];
+    {name: 'Mathematics', lecturer: '',description:'', day: 'MONDAY', type: {key: 'w', type: 'lecture'}, start_time: '8:00', end_time: '9:30', field_of_study: ''},
+    {name: 'UNIX Systems', lecturer: '',description:'', day: 'FRIDAY', type: {key: 'l', type: 'laboratory'}, start_time: '8:00', end_time: '9:30', field_of_study: ''},
+    {name: 'Algebra', lecturer: '',description:'', day: 'MONDAY', type: {key: 'l', type: 'laboratory'}, start_time: '8:00', end_time: '9:30', field_of_study: ''},
+    {name: 'Electronics', lecturer: '',description:'', day: 'TUESDAY', type: {key: 'w', type: 'lecture'}, start_time: '9:30', end_time: '11:00', field_of_study: ''},
+    {name: 'Internet of things', lecturer: '',description:'', day: 'WEDNESDAY', type: {key: 'l', type: 'laboratory'}, start_time: '11:00', end_time: '12:30', field_of_study: ''},
+    {name: 'Artificial Intelligence', lecturer: '',description:'', day: 'THURSDAY', type: {key: 'c', type: 'class'}, start_time: '14:00', end_time: '15:30', field_of_study: ''},
+    {name: 'Design Patterns', lecturer: '',description:'', day: 'FRIDAY', type: {key: 'l', type: 'laboratory'}, start_time: '17:00', end_time: '18:30', field_of_study: ''},
+    {name: 'Computer networks', lecturer: '',description:'', day: 'THURSDAY', type: {key: 'c', type: 'class'}, start_time: '12:30', end_time: '14:00', field_of_study: ''},
+    {name: 'Physics', lecturer: '',description:'', day: 'TUESDAY', type: {key: 'c', type: 'class'}, start_time: '11:00', end_time: '12:30', field_of_study: ''},
+    {name: 'Mathematics', lecturer: '',description:'', day: 'WEDNESDAY', type: {key: 'w', type: 'lecture'}, start_time: '8:00', end_time: '9:30', field_of_study: ''},
+    {name: 'UNIX Systems', lecturer: '',description:'', day: 'MONDAY', type: {key: 'l', type: 'laboratory'}, start_time: '8:00', end_time: '9:30', field_of_study: ''},
+    {name: 'Algebra', lecturer: '',description:'', day: 'THURSDAY', type: {key: 'l', type: 'laboratory'}, start_time: '8:00', end_time: '9:30', field_of_study: ''},
+    {name: 'Electronics', lecturer: '',description:'', day: 'MONDAY', type: {key: 'w', type: 'lecture'}, start_time: '9:30', end_time: '11:00', field_of_study: ''},
+    {name: 'Internet of things', lecturer: '',description:'', day: 'WEDNESDAY', type: {key: 'l', type: 'laboratory'}, start_time: '11:00', end_time: '12:30', field_of_study: ''},
+    {name: 'Artificial Intelligence', lecturer: '',description:'', day: 'THURSDAY', type: {key: 'c', type: 'class'}, start_time: '14:00', end_time: '15:30', field_of_study: ''},
+    {name: 'Design Patterns', lecturer: '',description:'', day: 'FRIDAY', type: {key: 'l', type: 'laboratory'}, start_time: '17:00', end_time: '18:30', field_of_study: ''},
+    {name: 'Computer networks', lecturer: '',description:'', day: 'TUESDAY', type: {key: 'c', type: 'class'}, start_time: '12:30', end_time: '14:00', field_of_study: ''},
+    {name: 'Physics', lecturer: '',description:'', day: 'TUESDAY', type: {key: 'c', type: 'class'}, start_time: '11:00', end_time: '12:30', field_of_study: ''}];
   
   hours = ['8:00-9:30', '9:30-11:00', '11:00-12:30', '12:30-14:00', '14:00-15:30', '15:30-17:00', '17:00-18:30','18:30-20:00'];
   start_hours = ['8:00', '9:30', '11:00', '12:30', '14:00', '15:30', '17:00','18:30'];
@@ -110,7 +111,7 @@ export class StudentComponent implements OnInit {
     this.api.getStudentID(this.token.id).subscribe(
       data =>{ 
         this.studentID = data[0].id;  
-        this.getMyExchanges();  
+        //this.getMyExchanges();  
         this.getAllSubjects();   
       },
       error =>{

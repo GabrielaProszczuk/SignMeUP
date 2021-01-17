@@ -196,12 +196,14 @@
                     <label>From</label>
                     <select required [(ngModel)]="exchange.from" style="background-color: antiquewhite" class="browser-default text-dark custom-select mb-2" name="exchange">
                       <option value="" disabled>Choose option</option>
-                      <option  class="text-dark" *ngFor="let subject of subjects" style="background-color:antiquewhite;" [value]="subject.id">{{subject.name}}</option>
+                      <option  class="text-dark" *ngFor="let subject of subjects" style="background-color:antiquewhite;" [value]="subject.id">
+                        {{subject.name}} {{ subject.day }} {{subject.start_time }}-{{subject.end_time}}</option>
                     </select>
                     <label>To</label>
                     <select required [(ngModel)]="exchange.to" style="background-color: antiquewhite" class="browser-default text-dark custom-select mb-2" name="exchange">
                       <option value="" disabled>Choose option</option>
-                      <option  class="text-dark" *ngFor="let subject of subjects" style="background-color: antiquewhite;" [value]="subject.id">{{subject.name}}</option>
+                      <option  class="text-dark" *ngFor="let subject of subjects" style="background-color: antiquewhite;" [value]="subject.id">
+                        {{subject.name}} {{ subject.day }} {{subject.start_time }}-{{subject.end_time}}</option>
                     </select>
                   </form>
                   
@@ -232,11 +234,23 @@
                       <!--Table head-->
                       <!--Table body-->
                    
-                      <tbody>
-                        <tr *ngFor="let index of indexes">
+                      <tbody class="">
+                        <tr *ngFor="let index of indexes ">
                           {{ start_hours[index] }} - {{ end_hours[index] }}
                           <td *ngFor = "let day of days">
-                              hello
+                            
+                            <ul *ngFor="let class of allClasses" class="rounded " style="background-color:antiquewhite; padding: 0px;">
+                                <p *ngIf="class.start_time===start_hours[index] && class.day===day" style="padding: 0px; margin: 0px; ">
+                                
+                                  {{ class.name }} 
+                                </p>
+      
+                                <p *ngIf="class.start_time===start_hours[index] && class.day===day" style="padding: 0px; margin: 0px; font-weight: bold;">
+                                
+                                 [{{ class.type.type }}]
+                                </p>
+                          </ul>
+                              
                           </td>
                           
                       </tr>
@@ -294,12 +308,12 @@
     <!--Table body-->
  
     <tbody>
-      <tr *ngFor="let student of stu">
+      <tr *ngFor="let exchange of exchanges">
         <td *ngFor = "let column of headers">
-            {{ student[column] }}
+            {{ exchange[column] }}
         </td>
         <td>
-            <button (click)="deleteUser(student.id)" class="btn btn-sm float-right login_btn btn-danger">x</button>
+            <button (click)="deleteUser(exchange.id)" class="btn btn-sm float-right login_btn btn-danger">x</button>
         </td>
     </tr>
     </tbody>
@@ -324,11 +338,23 @@
                         <!--Table head-->
                         <!--Table body-->
                      
-                        <tbody>
-                          <tr *ngFor="let index of indexes">
+                        <tbody class="">
+                          <tr *ngFor="let index of indexes ">
                             {{ start_hours[index] }} - {{ end_hours[index] }}
                             <td *ngFor = "let day of days">
-                                hello
+                              
+                              <ul *ngFor="let class of allClasses" class="rounded " style="background-color:antiquewhite; padding: 0px;">
+                                  <p *ngIf="class.start_time===start_hours[index] && class.day===day" style="padding: 0px; margin: 0px; ">
+                                  
+                                    {{ class.name }} 
+                                  </p>
+        
+                                  <p *ngIf="class.start_time===start_hours[index] && class.day===day" style="padding: 0px; margin: 0px; font-weight: bold;">
+                                  
+                                   [{{ class.type.type }}]
+                                  </p>
+                            </ul>
+                                
                             </td>
                             
                         </tr>

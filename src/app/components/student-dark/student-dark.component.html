@@ -48,12 +48,6 @@
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <div *ngFor="let field of fields" class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-              <label class="form-check-label" for="inlineCheckbox1">{{ field.name }}</label>
-            </div>
-        </div>
         </nav>
         <div class="container-fluid" *ngIf="MainDisplay" >
           <h1 class="mt-4">SignMeUp</h1>
@@ -65,8 +59,8 @@
           </p>
         </div>
 
-        <div class="container-fluid text-dark"  *ngIf="ScheduleDisplay" >
-          <table id="tablePreview" class="table table-hover table-dark table-bordered table-striped table-sm mt-3">
+        <div class="container-fluid text-light"  *ngIf="ScheduleDisplay" >
+          <table id="tablePreview" class="table text-light table-hover table-bordered table-striped table-sm mt-3">
             <!--Table head-->
               <thead>
                 <tr>
@@ -79,11 +73,23 @@
               <!--Table head-->
               <!--Table body-->
            
-              <tbody>
-                <tr *ngFor="let index of indexes">
+              <tbody class="">
+                <tr *ngFor="let index of indexes ">
                   {{ start_hours[index] }} - {{ end_hours[index] }}
                   <td *ngFor = "let day of days">
-                      hello
+                    
+                    <ul *ngFor="let class of myClasses" class="rounded text-dark" style="  background-color:antiquewhite; padding: 0px;">
+                        <p *ngIf="class.start_time===start_hours[index] && class.day===day" style="padding: 0px; margin: 0px; ">
+                        
+                          {{ class.name }} 
+                        </p>
+
+                        <p *ngIf="class.start_time===start_hours[index] && class.day===day" class="text-dark" style="padding: 0px; margin: 0px; font-weight: bold;">
+                        
+                         [{{ class.type.type }}]
+                        </p>
+                  </ul>
+                      
                   </td>
                   
               </tr>
@@ -93,7 +99,27 @@
         </div>
 
         <div class="container-fluid" *ngIf="ChoicesDisplay" >
-          <table id="tablePreview" class="table table-hover table-dark table-bordered table-striped table-sm mt-3">
+          <div class="row">
+            <div class="col-2 text-light mt-3">
+              <div>
+              <label style="font-weight: bold;">Choose field of study</label>
+                  <select required [(ngModel)]="chosenField" style="background-color: antiquewhite" class="browser-default  custom-select mb-2" name="exchange">
+                    <option value="" disabled>Choose option</option>
+                    <option (click)="getClasses()" class="text-dark" *ngFor="let field of fields" style="background-color:antiquewhite;" [value]="field.id">{{field.name}}</option>
+                  </select>
+              </div>
+              <p style="font-weight: bold;">Points left: {{ points }}</p>
+              <p>Choose a priority on a scale of 1-8 for the subjects you would most like to attend. You have 40 points total. 
+                By that priority subjects will be assigned among students.</p>
+              <button (click) = "savePoints()" class="btn-danger rounded text-light  mb-4">Save points</button>
+
+              <button (click) = "resetPoints()" class="btn-dark rounded text-light">Reset points</button>
+              
+
+              
+             </div>
+          <div class="col-10">
+          <table id="tablePreview" class="table table-bordered text-light table-striped table-sm mt-3">
             <!--Table head-->
               <thead>
                 <tr>
@@ -106,17 +132,37 @@
               <!--Table head-->
               <!--Table body-->
            
-              <tbody>
-                <tr *ngFor="let index of indexes">
+              <tbody class="">
+                <tr *ngFor="let index of indexes " >
                   {{ start_hours[index] }} - {{ end_hours[index] }}
                   <td *ngFor = "let day of days">
-                      hello
+                    
+                    <ul *ngFor="let class of allClasses" class="rounded text-dark " style="background-color:antiquewhite; padding: 0px;">
+                        <p *ngIf="class.start_time===start_hours[index] && class.day===day" style="padding: 0px; margin: 0px; ">
+                        
+                          {{ class.name }} 
+                        </p>
+
+                        <p *ngIf="class.start_time===start_hours[index] && class.day===day" style="padding: 0px; margin: 0px; font-weight: bold;">
+                        
+                         [{{ class.type.type }}]
+                        </p>
+                        <p *ngIf="class.start_time===start_hours[index] && class.day===day && class.type!==lecture">
+                        
+                          <input  class="text-dark align-items-end rounded " style="background-color:#d9534f" 
+                          type="number"  name="myPriority" min="1" max="8"> 
+                        </p>
+                  </ul>
+                      
                   </td>
                   
               </tr>
               </tbody>
               <!--Table body-->
             </table>
+
+          </div>
+          </div>
         </div>
 
         <div class="container-fluid text-light border-dark rounded" *ngIf="NewExchangeDisplay">
@@ -135,12 +181,14 @@
                   <label>From</label>
                   <select required [(ngModel)]="exchange.from" style="background-color: #333" class="browser-default text-light custom-select mb-2" name="exchange">
                     <option value="" disabled>Choose option</option>
-                    <option  class="bg-dark text-light" *ngFor="let subject of subjects" style="background-color: #333;" [value]="subject.id">{{subject.name}}</option>
+                    <option  class="bg-dark text-light" *ngFor="let subject of subjects" style="background-color: #333;" [value]="subject.id">
+                      {{subject.name}} {{ subject.day }} {{subject.start_time }}-{{subject.end_time}}</option>
                   </select>
                   <label>To</label>
                   <select required [(ngModel)]="exchange.to" style="background-color: #333" class="browser-default text-light custom-select mb-2" name="exchange">
                     <option value="" disabled>Choose option</option>
-                    <option  class="bg-dark text-light" *ngFor="let subject of subjects" style="background-color: #333;" [value]="subject.id">{{subject.name}}</option>
+                    <option  class="bg-dark text-light" *ngFor="let subject of subjects" style="background-color: #333;" [value]="subject.id">
+                      {{subject.name}} {{ subject.day }} {{subject.start_time }}-{{subject.end_time}}</option>
                   </select>
                 </form>
                 
@@ -158,7 +206,7 @@
           <div class="col-8">
              <!-- Textbox -->
               <div class="well mt-3 rounded " >
-                <table id="tablePreview" class="table table-hover table-dark table-bordered table-striped table-sm mt-3">
+                <table id="tablePreview" class="table text-light table-hover table-bordered table-striped table-sm mt-3">
                   <!--Table head-->
                     <thead>
                       <tr>
@@ -171,11 +219,23 @@
                     <!--Table head-->
                     <!--Table body-->
                  
-                    <tbody>
-                      <tr *ngFor="let index of indexes">
+                    <tbody class="">
+                      <tr *ngFor="let index of indexes ">
                         {{ start_hours[index] }} - {{ end_hours[index] }}
                         <td *ngFor = "let day of days">
-                            hello
+                          
+                          <ul *ngFor="let class of allClasses" class="rounded text-dark" style="  background-color:antiquewhite; padding: 0px;">
+                              <p *ngIf="class.start_time===start_hours[index] && class.day===day" style="padding: 0px; margin: 0px; ">
+                              
+                                {{ class.name }} 
+                              </p>
+      
+                              <p *ngIf="class.start_time===start_hours[index] && class.day===day" class="text-dark" style="padding: 0px; margin: 0px; font-weight: bold;">
+                              
+                               [{{ class.type.type }}]
+                              </p>
+                        </ul>
+                            
                         </td>
                         
                     </tr>
@@ -233,12 +293,12 @@
   <!--Table body-->
  
   <tbody>
-    <tr *ngFor="let ex of exchanges">
+    <tr *ngFor="let exchange of exchanges">
       <td *ngFor = "let column of headers">
-          {{ ex[column] }}
+          {{ exchange[column] }}
       </td>
       <td>
-          <button (click)="deleteExchange(ex.id)" class="btn btn-sm float-right login_btn btn-danger">x</button>
+          <button (click)="deleteUser(exchange.id)" class="btn btn-sm float-right login_btn btn-danger">x</button>
       </td>
   </tr>
   </tbody>
@@ -251,7 +311,7 @@
               <div class="col-7">
                <!-- Textbox -->
                 <div class="well mt-3 rounded">
-                  <table id="tablePreview" class="table table-hover table-dark table-bordered table-striped table-sm mt-3">
+                  <table id="tablePreview" class="table text-light table-hover table-bordered table-striped table-sm mt-3">
                     <!--Table head-->
                       <thead>
                         <tr>
@@ -264,11 +324,23 @@
                       <!--Table head-->
                       <!--Table body-->
                    
-                      <tbody>
-                        <tr *ngFor="let index of indexes">
+                      <tbody class="">
+                        <tr *ngFor="let index of indexes ">
                           {{ start_hours[index] }} - {{ end_hours[index] }}
                           <td *ngFor = "let day of days">
-                              hello
+                            
+                            <ul *ngFor="let class of allClasses" class="rounded text-dark" style="  background-color:antiquewhite; padding: 0px;">
+                                <p *ngIf="class.start_time===start_hours[index] && class.day===day" style="padding: 0px; margin: 0px; ">
+                                
+                                  {{ class.name }} 
+                                </p>
+        
+                                <p *ngIf="class.start_time===start_hours[index] && class.day===day" class="text-dark" style="padding: 0px; margin: 0px; font-weight: bold;">
+                                
+                                 [{{ class.type.type }}]
+                                </p>
+                          </ul>
+                              
                           </td>
                           
                       </tr>
