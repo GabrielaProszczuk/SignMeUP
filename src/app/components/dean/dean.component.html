@@ -8,26 +8,26 @@
         <div class="list-group list-group-flush">
          <!-- <button class="list-group-item list-group-item-action bg-light" (click)="showImport()">Importuj plan zajęć</button>
          -->
-          <button class="list-group-item list-group-item-action bg-light" (click)="showEdits()">Edytuj plan zajęć</button>
-          <button class="list-group-item list-group-item-action bg-light" (click)="showGroups()">Zobacz członków grupy</button>
+          <button class="list-group-item list-group-item-action bg-light" (click)="showEdits()">Add to schedule</button>
+          <button class="list-group-item list-group-item-action bg-light" (click)="showGroups()">Students</button>
   
           <div class="btn-group dropright">
             <button type="button" class="list-group-item list-group-item-action btn dropdown-toggle bg-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Motyw
+              Theme
             </button>
             <div class="dropdown-menu">
-              <button class="list-group-item list-group-item-action bg-light" >Dzienny</button>
-              <button (click)="toDarkMode()" class="list-group-item list-group-item-action bg-light">Nocny</button>
+              <button class="list-group-item list-group-item-action bg-light" >Day Mode</button>
+              <button (click)="toDarkMode()" class="list-group-item list-group-item-action bg-light">Night Mode</button>
             </div>
           </div>
   
           <div class="btn-group dropright">
             <button type="button" class="btn dropdown-toggle list-group-item list-group-item-action bg-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Konto
+              Account
             </button>
             <div class="dropdown-menu">
-              <button class="list-group-item list-group-item-action bg-light" (click)="changePassword()">Zmień hasło</button>
-              <a (click)="loggout()" class="list-group-item list-group-item-action bg-light">Wyloguj się</a>
+              <button class="list-group-item list-group-item-action bg-light" (click)="changePassword()">Change password</button>
+              <a (click)="loggout()" class="list-group-item list-group-item-action bg-light">Loggout</a>
             </div>
           </div>
   
@@ -65,11 +65,56 @@
             </div>
           </div>
         </div>
+<div class="row">
+        <div class="container-fluid col-8" *ngIf="EditsDisplay">
+          <form class="border border-light mt-3 p-1">
+               
+            <!-- Subject -->
+            <label> Year </label>
+            <select (click)="getAllFields()" required [(ngModel)]="chosenYear.id" style="background-color:mintcream" class="browser-default text-dark custom-select mb-2" name="class">
+              <option value="" disabled>Choose year</option>
+              <option  class="bg-light text-dark" *ngFor="let year of years" style="background-color:mintcream" [value]="year.id">{{year.start_year}}</option>
+            </select>
 
-        <div class="container-fluid" *ngIf="EditsDisplay">
-          <p>Tu będzie możliwość edycji planu.</p>
+            <label> Field of study </label>
+            <select required [(ngModel)]="newClass.field_of_study" style="background-color:mintcream" class="browser-default text-dark custom-select mb-2" name="class">
+              <option value="" disabled>Choose field of study</option>
+              <option  class="bg-light text-dark" *ngFor="let field of fields" style="background-color:mintcream" [value]="field.id">{{field.name}}</option>
+            </select>
+
+            <label>Subject name</label>
+            <input style="background-color:mintcream" [(ngModel)]="newClass.name" type="text" name="class" class="form-control mb-1" placeholder="Subject">
+            
+            <label>Lecturer</label>
+            <input style="background-color:mintcream" [(ngModel)]="newClass.lecturer" type="text" name="class" class="form-control mb-1" placeholder="Lecturer">
+            
+            <label>Description</label>
+            <input style="background-color:mintcream" [(ngModel)]="newClass.description" type="text" name="class" class="form-control mb-1" placeholder="Description">
+            
+
+            <label> Day </label>
+            <select required [(ngModel)]="newClass.day" style="background-color:mintcream" class="browser-default text-dark custom-select mb-2" name="class">
+              <option value="" disabled>Choose day</option>
+              <option  class="bg-light text-dark" *ngFor="let day of days" style="background-color:mintcream" [value]="day">{{day}}</option>
+            </select>
+
+            <label> Type </label>
+            <select required [(ngModel)]="newClass.type" style="background-color:mintcream" class="browser-default text-dark custom-select mb-2" name="class">
+              <option value="" disabled>Choose type</option>
+              <option  class="bg-light text-dark" *ngFor="let type of types" style="background-color:mintcream" [value]="type">{{type}}</option>
+            </select>
+            
+            <label for="appt1-time" style="margin-right:27px;">Start time</label>
+            
+            <label for="appt2-time">End time</label><br>
+            <input [(ngModel)]="newClass.start_time" id="appt1-time" style="margin-right:20px;" type="time" name="class " value="08:30">
+            <input [(ngModel)]="newClass.end_time" id="appt2-time" type="time" name="class" value="08:30">
+            <br> <br>
+            <button (click)="addClass()" class="btn rounded btn-danger">Add class</button>
+           
+          </form>
         </div>
-
+      </div>
         <div class="container-fluid" *ngIf="PasswordDisplay">
           <div class="row">
             <div class="col-4" >
@@ -78,17 +123,17 @@
                 <form class="border border-light mt-3 p-1">
                
                   <!-- Subject -->
-                  <label>Stare hasło</label>
+                  <label>Old password</label>
                   <input style="background-color:antiquewhite" type="password" class="form-control mb-1" placeholder="Old password">
-                  <label>Nowe hasło</label>
+                  <label>New password</label>
                   <input style="background-color:antiquewhite" [(ngModel)] = "newpass1" name="pass" type="password" class="form-control mb-1" placeholder="New password">
-                  <label>Powtórz nowe hasło</label>
+                  <label>Repeat new password</label>
                   <input style="background-color:antiquewhite"  [(ngModel)] = "newpass2" name="pass" type="password" class="form-control mb-1" placeholder="Repeat new password">
                 
                 </form>
                 
                 <form class="border rounded border-light p-1">
-                  <button (click)="changeMyPassword()" mdbBtn block="true" class="btn btn-dark" type="submit">Zmień hasło</button>
+                  <button (click)="changeMyPassword()" mdbBtn block="true" class="btn btn-dark" type="submit">Change password</button>
                 </form>
               </div>
             </div>
@@ -148,7 +193,7 @@
                 
                 <form>
                   <div class="form-group text-dark mt-2 p-1 rounded" style ="background-color:mintcream;">
-                    <label for="exampleFormControlFile1">Add list of students [email, fieldofstudy]</label>
+                    <label for="exampleFormControlFile1">Add list of students</label>
                     <input type="file" (change)="onFileSelected($event)"class="form-control-file" accept=".csv" id="exampleFormControlFile1">
                     <button type="button" (click)="onUpload()">Upload</button>
                   </div>

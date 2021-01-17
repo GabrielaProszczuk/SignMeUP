@@ -27,7 +27,9 @@ export class DeanComponent implements OnInit {
   fields = [{id:1, name:''}]
   students = [{id:1, user: {id: null, email: ''}}];
   headers = ["id", "email"];
-
+  newClass = {name: '', lecturer: '',description:'', day: '', type: '', start_time: '', end_time: '', field_of_study: ''};
+  days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  types = ['c', 'w'];
   selectedFiles?: FileList;
   currentFile?: File;
   progress = 0;
@@ -41,7 +43,7 @@ export class DeanComponent implements OnInit {
     this.getAllStudents();
    }
 
-   httpHeadersFile = new HttpHeaders({'Content-Type' : "'multipart/form-data';boundary=----WebKitFormBoundaryyrV7KO0BoCBuDbTL"})
+   httpHeadersFile = new HttpHeaders({'Content-Type' : 'multipart/form-data;boundary=----WebKitFormBoundaryyrV7KO0BoCBuDbTL'})
    selectedFile: File;
    onFileSelected(event){
     this.selectedFile = <File>event.target.files[0];
@@ -52,7 +54,7 @@ export class DeanComponent implements OnInit {
      const fd = new FormData();
      fd.append('csv', this.selectedFile, this.selectedFile.name);
      console.log(this.selectedFile);
-    this.http.put('https://signmeupapi.herokuapp.com/v1/api/registerstudents', fd,{
+    this.http.put('https://signmeupapi.herokuapp.com/api/v1/registerstudents', fd,{
       headers: this.httpHeadersFile
     }
      )
@@ -105,6 +107,16 @@ export class DeanComponent implements OnInit {
     }
   }
 
+  addClass(){
+    this.api.addClass(this.chosenYear.id, this.newClass.field_of_study, this.newClass).subscribe(
+      res =>{
+        alert("Class added");
+      },
+      err =>{
+        console.log(err);
+      }
+    )
+  }
   toDarkMode(){
     this.router.navigate(['/dean-dark'])
   }

@@ -12,7 +12,7 @@ export class AdminComponent implements OnInit {
   
   token;
   officials = [{id: 1, email: 'jola@jola.pl'}];
-  departments = [{id:1, name: 'agh', university:'' }, {id:2, name:'pw', university:''}, {id:3, name:'uj', university:''}];
+  departments = [{id:1, name: 'weaiib', university:'' }, {id:2, name:'wiet', university:''}, {id:3, name:'wimip', university:''}];
   headers = ["id", "email"];
   registeredUser: User;
   MainDisplay = true;
@@ -22,7 +22,7 @@ export class AdminComponent implements OnInit {
 
   constructor(private api:UserService, private router: Router) {
     this.getMyUser();
-    //this.getAllOfficials();
+    this.getAllOfficials();
     console.log(this.token.token)
     this.getAllDepartments();
     this.registeredUser = new User('','',2, null, this.token.university);
@@ -33,6 +33,7 @@ export class AdminComponent implements OnInit {
       $("#wrapper").toggleClass("toggled");
     });
   }
+
 
   getAllDepartments = () =>{
     this.api.getDepartments(this.token.university).subscribe(
@@ -76,7 +77,7 @@ export class AdminComponent implements OnInit {
     this.UsersDisplay = false;
   }
    getAllOfficials = () =>{
-    this.api.getOfficials(this.token.university).subscribe(
+    this.api.getOfficials().subscribe(
       data =>{
         this.officials = data;
         
@@ -87,19 +88,20 @@ export class AdminComponent implements OnInit {
     )
    }
    addUser() {
-     console.log(this.registeredUser);
     this.api.addUser(this.registeredUser).subscribe(
       response => {
-        alert('User ' + this.registeredUser.email + 'has been added to database')
+        alert('User has been added to database');
+        this.getAllOfficials();
       },
       error =>{
         console.log(error)
       }
     );
    }
-   deleteUser(user){
-    this.api.deleteUser(user).subscribe(
+   deleteUser(id){
+    this.api.deleteUser(id).subscribe(
       data => {
+        alert("Admin deleted");
         this.getAllOfficials();
       },
       error =>{

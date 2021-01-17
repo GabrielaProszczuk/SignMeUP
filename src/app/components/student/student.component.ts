@@ -16,6 +16,7 @@ export class StudentComponent implements OnInit {
   exchanges = [{id: '1', unwanted_subject_id: 'Algebra', wanted_subject_id: 'Analiza', priority: '4'}];
   subjects = [{id: '', name: '', day:'', start_time: '', end_time:''}];
   headers = ['id', 'unwanted_subject_id', 'wanted_subject_id', 'priority'];
+  fields = [{id:null, name:'Informatyka'}];
   NewExchangeDisplay = false;
   EditExchangeDisplay = false;
   ChoicesDisplay = false;
@@ -25,8 +26,9 @@ export class StudentComponent implements OnInit {
 
   constructor(private api:UserService, private router:Router) { 
     this.getMyUser();
-    this.getMyExchanges();
-    this.getAllSubjects();
+    this.getStudentID();
+    this.getMyFields();
+    
   }
   
   ngOnInit(): void {
@@ -44,14 +46,36 @@ export class StudentComponent implements OnInit {
   }
   getMyUser = () =>{
     this.token = this.api.getTokenStudent() || '{}';
-    console.log(this.token);
   }
-  getMyExchanges = () =>{
-    console.log(this.token.id)
-    this.getStudentID();
-    this.api.getExchanges(this.token.id, this.studentID).subscribe(
+
+  getMyFields(){
+    /*
+    this.api.getMyFields(this.token.id, this.studentID).subscribe(
       data =>{
         console.log(data)
+        this.exchanges = data;
+        
+      },
+      error => {
+          console.log(error);
+      }
+    )*/
+  }
+  getStudentID(){
+    this.api.getStudentID(this.token.id).subscribe(
+      data =>{ 
+        this.studentID = data[0].id;  
+        this.getMyExchanges();  
+        this.getAllSubjects();   
+      },
+      error =>{
+        console.log(error);
+      })
+   }
+
+  getMyExchanges(){   
+    this.api.getExchanges(this.token.id, this.studentID).subscribe(
+      data =>{
         this.exchanges = data;
         
       },
@@ -61,20 +85,10 @@ export class StudentComponent implements OnInit {
     )
    }
 
-   getStudentID(){
-     this.api.getStudentID(this.token.id).subscribe(
-       data =>{
-         this.studentID = data;
-         console.log(data);
-         console.log(data.fieldofstudy);
-       },
-       error =>{
-         console.log(error);
-       })
-       }
+
  
    getAllSubjects = () =>{
-    this.api.getSubjects(this.token.university, this.token.department, this.token.year_id, this.token.field_id).subscribe(
+    this.api.getSubjects(this.token.id, this.studentID).subscribe(
       data =>{
         console.log(data);
         this.subjects = data;

@@ -11,8 +11,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class AdminDarkComponent implements OnInit {
   
   token;
-  officials = [{id: 1, email: 'jola@jola.pl '}];
-  departments = [{id:1, name: 'agh'}, {id:2, name:'pw'}, {id:3, name:'uj'}];
+  officials = [{id: 1, email: 'jola@jola.pl'}];
+  departments = [{id:1, name: 'weaiib', university:'' }, {id:2, name:'wiet', university:''}, {id:3, name:'wimip', university:''}];
   headers = ["id", "email"];
   registeredUser: User;
   MainDisplay = true;
@@ -22,12 +22,20 @@ export class AdminDarkComponent implements OnInit {
 
   constructor(private api:UserService, private router: Router) {
     this.getMyUser();
-    //this.getAllOfficials();
+    this.getAllOfficials();
+    console.log(this.token.token)
     this.getAllDepartments();
     this.registeredUser = new User('','',2, null, this.token.university);
-    
   }
-    getAllDepartments = () =>{
+  ngOnInit(): void {
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  }
+
+
+  getAllDepartments = () =>{
     this.api.getDepartments(this.token.university).subscribe(
       data =>{
         this.departments = data;
@@ -38,15 +46,9 @@ export class AdminDarkComponent implements OnInit {
       }
     )
    }
-  ngOnInit(): void {
-    $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-  }
+
   getMyUser = () =>{
     this.token = this.api.getTokenDean() || '{}';
-    console.log(this.token.first_name);
   }
   toLightMode(){
     this.router.navigate(['/admin'])
@@ -75,7 +77,7 @@ export class AdminDarkComponent implements OnInit {
     this.UsersDisplay = false;
   }
    getAllOfficials = () =>{
-    this.api.getOfficials(this.token.university).subscribe(
+    this.api.getOfficials().subscribe(
       data =>{
         this.officials = data;
         
@@ -86,19 +88,20 @@ export class AdminDarkComponent implements OnInit {
     )
    }
    addUser() {
-     console.log(this.registeredUser);
     this.api.addUser(this.registeredUser).subscribe(
       response => {
-        alert('User ' + this.registeredUser.username + 'has been added to database')
+        alert('User has been added to database');
+        this.getAllOfficials();
       },
       error =>{
         console.log(error)
       }
     );
    }
-   deleteUser(user){
-    this.api.deleteUser(user).subscribe(
+   deleteUser(id){
+    this.api.deleteUser(id).subscribe(
       data => {
+        alert("Admin deleted");
         this.getAllOfficials();
       },
       error =>{

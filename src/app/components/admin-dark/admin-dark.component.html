@@ -6,7 +6,7 @@
            <div (click)="showMain()"> {{ token.email }} </div>
           </div>
           <div class="list-group list-group-flush">
-            <button (click)="showUsers()"class="list-group-item list-group-item-action bg-dark text-light" (click)="showUserss()">See admins</button>
+            <button (click)="showUsers()"class="list-group-item list-group-item-action bg-dark text-light" (click)="showUsers()">See admins</button>
     
             <div class="btn-group dropright">
               <button type="button" class="list-group-item list-group-item-action btn dropdown-toggle bg-dark text-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -71,7 +71,7 @@
                             {{ official[column] }}
                         </td>
                         <td>
-                            <button (click)="deleteUser(official)" class="btn btn-sm float-right login_btn btn-danger">x</button>
+                            <button (click)="deleteUser(official.id)" class="btn btn-sm float-right login_btn btn-danger">x</button>
                         </td>
                     </tr>
                 </tbody>

@@ -4,37 +4,37 @@
         <div class="bg-light border-right " id="sidebar-wrapper">
           <button class="list-group-item list-group-item-action bg-light font-weight-bold" (click)="showMain()">{{ token.email }}</button>
           <div class="list-group list-group-flush">
-            <button class="list-group-item list-group-item-action bg-light" (click)="showSchedule()">Wyświetl plan</button>
-            <button class="list-group-item list-group-item-action bg-light" (click)="showChoices()">Wybór przedmiotów</button>
+            <button class="list-group-item list-group-item-action bg-light" (click)="showSchedule()">Schedule</button>
+            <button class="list-group-item list-group-item-action bg-light" (click)="showChoices()">Choose classes</button>
     
         
             <div class="btn-group dropright">
               <button type="button" class="list-group-item list-group-item-action btn dropdown-toggle bg-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Giełda zamian
+                Exchanges
               </button>
               <div class="dropdown-menu">
-                <button class="list-group-item list-group-item-action bg-light" (click)="makeNewExchange()">Złóż podanie</button>
-                <button class="list-group-item list-group-item-action bg-light" (click)="editExchanges()">Edytuj/usuń podanie</button>
+                <button class="list-group-item list-group-item-action bg-light" (click)="makeNewExchange()">Add exchange</button>
+                <button class="list-group-item list-group-item-action bg-light" (click)="editExchanges()">All exchanges</button>
               </div>
             </div>
     
             <div class="btn-group dropright">
               <button type="button" class="list-group-item list-group-item-action btn dropdown-toggle bg-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Motyw
+                Theme
               </button>
               <div class="dropdown-menu">
-                <button class="list-group-item list-group-item-action bg-light" >Dzienny</button>
-                <button (click) = "toDarkMode()"class="list-group-item list-group-item-action bg-light">Nocny</button>
+                <button class="list-group-item list-group-item-action bg-light" >Day mode</button>
+                <button (click) = "toDarkMode()"class="list-group-item list-group-item-action bg-light">Night Mode</button>
               </div>
             </div>
     
             <div class="btn-group dropright">
               <button type="button" class="btn dropdown-toggle list-group-item list-group-item-action bg-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Konto
+                Account
               </button>
               <div class="dropdown-menu">
-                <button class="list-group-item list-group-item-action bg-light" (click)="changePassword()">Zmień hasło</button>
-                <a routerLink="/" (click) = "logout()" class="list-group-item list-group-item-action bg-light">Wyloguj się</a>
+                <button class="list-group-item list-group-item-action bg-light" (click)="changePassword()">Change password</button>
+                <a routerLink="/" (click) = "logout()" class="list-group-item list-group-item-action bg-light">Loggout</a>
               </div>
             </div>
     
@@ -49,13 +49,9 @@
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-nav ml-auto mt-2 mt-lg-0">
-              <div class="form-check form-check-inline">
+              <div *ngFor="let field of fields" class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1">Informatyka</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox2">Dziennikarstwo</label>
+                <label class="form-check-label" for="inlineCheckbox1">{{ field.name }}</label>
               </div>
           </div>
           </nav>
@@ -325,17 +321,17 @@
                   <form class="border border-light mt-3 p-1">
                  
                     <!-- Subject -->
-                    <label>Stare hasło</label>
+                    <label>Old password</label>
                     <input type="password" style="background-color:antiquewhite" class="form-control rounded mb-1" placeholder="Old password">
-                    <label>Nowe hasło</label>
+                    <label>New password</label>
                     <input type="password" style="background-color:antiquewhite" class="form-control rounded mb-1" placeholder="New password">
-                    <label>Powtórz nowe hasło</label>
+                    <label>Repeat new passowrd</label>
                     <input type="password" style="background-color:antiquewhite" class="form-control rounded mb-1" placeholder="Repeat new password">
                   
                   </form>
                   
                   <form class="border border-light p-1">
-                    <button mdbBtn block="true" class="btn btn-dark" type="submit">Zmień hasło</button>
+                    <button mdbBtn block="true" class="btn btn-dark" type="submit">Change password</button>
                   </form>
                 </div>
               </div>

@@ -18,7 +18,7 @@ export class UserService {
 
     formData.append('file', file);
 
-    const req = new HttpRequest('POST', `${this.baseurl}/v1/api/registerstudents`, formData, {
+    const req = new HttpRequest('PUT', `${this.baseurl}/api/v1/registerstudents`, formData, {
       reportProgress: true,
       responseType: 'json',
       headers: this.httpHeadersFile
@@ -81,9 +81,8 @@ export class UserService {
   }
 
   //pobieranie listy użytkowników, aplikacji
-  getOfficials(id): Observable<any>{    //ten nie działa jeszcze
-    return this.http.get(this.baseurl + '/api/v1/universities/' + id + '', 
-    )
+  getOfficials(): Observable<any>{    //ten nie działa jeszcze
+    return this.http.get(this.baseurl + '/api/v1/users/', {headers: this.httpHeaders})
   }
 
   getStudents(depID, yearId, fieldID): Observable<any>{
@@ -103,12 +102,12 @@ export class UserService {
   }
 
   getExchanges(userId, studentId):Observable<any>{
-    return this.http.get(this.baseurl + '/api/v1/users/'+ userId + '/students/'+ studentId + '/applications/',
+     return this.http.get(this.baseurl + '/api/v1/users/'+ userId + '/students/'+ studentId + '/applications/',
     {headers: this.httpHeaders});
     
   }
-  getSubjects(uniID, depID, yearID, fieldID){
-    return this.http.get(this.baseurl + '/api/v1/years/'+yearID+'/fieldsofstudy/'+fieldID + '/subjects/',
+  getSubjects(userID, studentID){
+    return this.http.get(this.baseurl + '/api/v1/users/'+userID+'/students/'+studentID+'/subjects/',
     {headers: this.httpHeaders});
   }
 
@@ -119,6 +118,9 @@ export class UserService {
 
   addExchange(userId, studentId, data): Observable<any>{
     return this.http.post(this.baseurl + '/api/v1/users/'+ userId + '/students/'+ studentId + '/applications/', data);
+  }
+  addClass(yearId, fieldId, data): Observable<any>{
+    return this.http.post(this.baseurl + '/api/v1/years/'+ yearId + '/fieldsofstudy/'+ fieldId + '/subjects/', data);
   }
 
   //usuwanie używtkoników, aplikacji
