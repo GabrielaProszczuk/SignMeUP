@@ -48,12 +48,14 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
+            <!--
             <div class="navbar-nav ml-auto mt-2 mt-lg-0">
               <div *ngFor="let field of fields" class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
                 <label class="form-check-label" for="inlineCheckbox1">{{ field.name }}</label>
               </div>
           </div>
+        -->
           </nav>
           <div class="container-fluid" *ngIf="MainDisplay" >
             <h1 class="mt-4">SignMeUp</h1>
@@ -66,37 +68,13 @@
           </div>
 
           <div class="container-fluid" *ngIf="ScheduleDisplay" >
-            <table id="tablePreview" class="table table-hover table-bordered table-striped table-sm mt-3">
-              <!--Table head-->
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th *ngFor = "let day of days">
-                      {{ day }}
-                  </th>
-                  </tr>
-                </thead>
-                <!--Table head-->
-                <!--Table body-->
-             
-                <tbody>
-                  <tr *ngFor="let index of indexes">
-                    {{ start_hours[index] }} - {{ end_hours[index] }}
-                    <td *ngFor = "let day of days">
-                        hello
-                    </td>
-                    
-                </tr>
-                </tbody>
-                <!--Table body-->
-              </table>
-          </div>
-
-          <div class="container-fluid row" *ngIf="ChoicesDisplay" >
-            
-            <p>Points left: {{ points }}</p>
-            <button class="btn-danger">Reset points</button>
-            <div class="col-8">
+            <div class="col-2 mt-3">
+              <label style="font-weight: bold;">Choose field of study</label>
+                  <select required [(ngModel)]="chosenField" style="background-color: antiquewhite" class="browser-default  custom-select mb-2" name="exchange">
+                    <option value="" disabled>Choose option</option>
+                    <option (click)="getMyClasses()" class="text-dark" *ngFor="let field of fields" style="background-color:antiquewhite;" [value]="field.id">{{field.name}}</option>
+                  </select>
+              </div>
             <table id="tablePreview" class="table table-hover table-bordered table-striped table-sm mt-3">
               <!--Table head-->
                 <thead>
@@ -111,20 +89,20 @@
                 <!--Table body-->
              
                 <tbody class="">
-                  <tr *ngFor="let index of indexes " class="justify-content-start">
+                  <tr *ngFor="let index of indexes ">
                     {{ start_hours[index] }} - {{ end_hours[index] }}
                     <td *ngFor = "let day of days">
                       
-                      <ul *ngFor="let class of myClasses">
-                      <p *ngIf="class.start_time===start_hours[index] && class.day===day" >
-                       
-                        {{ class.name }}
-                      </p>
-                      <p *ngIf="class.start_time===start_hours[index] && class.day===day" >
-                       
-                        <input  class="text-dark align-items-end rounded " style="background-color:antiquewhite" 
-                        type="number"  name="myPriority" min="1" max="8"> 
-                      </p>
+                      <ul *ngFor="let class of myClasses" class="rounded " style="background-color:antiquewhite; padding: 0px;">
+                          <p *ngIf="class.start_time===start_hours[index] && class.day===day" style="padding: 0px; margin: 0px; ">
+                          
+                            {{ class.name }} 
+                          </p>
+
+                          <p *ngIf="class.start_time===start_hours[index] && class.day===day" style="padding: 0px; margin: 0px; font-weight: bold;">
+                          
+                           [{{ class.type.type }}]
+                          </p>
                     </ul>
                         
                     </td>
@@ -133,6 +111,70 @@
                 </tbody>
                 <!--Table body-->
               </table>
+          </div>
+
+          <div class="container-fluid" *ngIf="ChoicesDisplay" >
+            <div class="row">
+              <div class="col-2 mt-3">
+                <div>
+                <label style="font-weight: bold;">Choose field of study</label>
+                    <select required [(ngModel)]="chosenField" style="background-color: antiquewhite" class="browser-default  custom-select mb-2" name="exchange">
+                      <option value="" disabled>Choose option</option>
+                      <option (click)="getClasses()" class="text-dark" *ngFor="let field of fields" style="background-color:antiquewhite;" [value]="field.id">{{field.name}}</option>
+                    </select>
+                </div>
+                <p style="font-weight: bold;">Points left: {{ points }}</p>
+                <button (click) = "savePoints()" class="btn-danger rounded text-light  mb-4">Save points</button>
+
+                <button (click) = "resetPoints()" class="btn-dark rounded text-light">Reset points</button>
+                
+
+                
+               </div>
+            <div class="col-10">
+            <table id="tablePreview" class="table table-bordered table-striped table-sm mt-3">
+              <!--Table head-->
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th *ngFor = "let day of days">
+                      {{ day }}
+                  </th>
+                  </tr>
+                </thead>
+                <!--Table head-->
+                <!--Table body-->
+             
+                <tbody class="">
+                  <tr *ngFor="let index of indexes ">
+                    {{ start_hours[index] }} - {{ end_hours[index] }}
+                    <td *ngFor = "let day of days">
+                      
+                      <ul *ngFor="let class of allClasses" class="rounded " style="background-color:antiquewhite; padding: 0px;">
+                          <p *ngIf="class.start_time===start_hours[index] && class.day===day" style="padding: 0px; margin: 0px; ">
+                          
+                            {{ class.name }} 
+                          </p>
+
+                          <p *ngIf="class.start_time===start_hours[index] && class.day===day" style="padding: 0px; margin: 0px; font-weight: bold;">
+                          
+                           [{{ class.type.type }}]
+                          </p>
+                          <p *ngIf="class.start_time===start_hours[index] && class.day===day && class.type!==lecture">
+                          
+                            <input  class="text-dark align-items-end rounded " style="background-color:#d9534f" 
+                            type="number"  name="myPriority" min="1" max="8"> 
+                          </p>
+                    </ul>
+                        
+                    </td>
+                    
+                </tr>
+                </tbody>
+                <!--Table body-->
+              </table>
+ 
+            </div>
             </div>
           </div>
 
@@ -140,14 +182,14 @@
             <div class="row">
               <div class="col-4">
                  <!-- Textbox -->
-                 <div class="well border-light rounded text-dark" >
+                 <div class="well border-light rounded text-dark" style="font-weight: bold;" >
                   <form class="border border-light rounded mt-3 mb-1 p-2"  >
                  
                     <!-- Subject -->
                     <label>Field of study</label>
                     <select required [(ngModel)]="chosenField" style="background-color: antiquewhite" class="browser-default text-dark custom-select mb-2" name="exchange">
                       <option value="" disabled>Choose option</option>
-                      <option  class=" text-dark" *ngFor="let field of fields" style="background-color: antiquewhite;" [value]="subject.id">{{subject.name}}</option>
+                      <option  (click)="getClasses()" class=" text-dark" *ngFor="let field of fields" style="background-color: antiquewhite;" [value]="field.id">{{field.name}}</option>
                     </select>
                     <label>From</label>
                     <select required [(ngModel)]="exchange.from" style="background-color: antiquewhite" class="browser-default text-dark custom-select mb-2" name="exchange">
@@ -208,7 +250,7 @@
             <div class="row">
               <div class="col-4" >
                  <!-- Textbox -->
-                 <div class="well "  >
+                 <div class="well " style="font-weight: bold;" >
                   <form class="border border-light mt-3 p-1">
                  
                     <!-- Subject -->

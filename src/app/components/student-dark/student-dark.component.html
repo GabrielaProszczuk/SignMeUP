@@ -123,14 +123,14 @@
           <div class="row">
             <div class="col-4">
                <!-- Textbox -->
-               <div class="well border-dark rounded text-light" >
+               <div class="well border-dark rounded text-light" style="font-weight: bold;">
                 <form class="border border-dark rounded mt-3 mb-1 p-2"  >
                 
                   <!-- Subject -->
                   <label>Field of study</label>
                   <select required [(ngModel)]="chosenField" style="background-color: #333" class="browser-default text-dark custom-select mb-2" name="exchange">
                     <option value="" disabled>Choose option</option>
-                    <option  class="bg-dark text-light" *ngFor="let field of fields" style="background-color: #333;" [value]="subject.id">{{subject.name}}</option>
+                    <option  class="bg-dark text-light" *ngFor="let field of fields" style="background-color: #333;" [value]="field.id">{{field.name}}</option>
                   </select>
                   <label>From</label>
                   <select required [(ngModel)]="exchange.from" style="background-color: #333" class="browser-default text-light custom-select mb-2" name="exchange">
@@ -191,7 +191,7 @@
           <div class="row">
             <div class="col-4" >
                <!-- Textbox -->
-               <div class="well "  >
+               <div class="well " style="font-weight: bold;" >
                 <form class="border border-dark mt-3 p-1">
                
                   <!-- Subject -->
