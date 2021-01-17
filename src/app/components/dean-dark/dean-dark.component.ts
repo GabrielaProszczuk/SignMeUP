@@ -43,32 +43,7 @@ export class DeanDarkComponent implements OnInit {
     this.getAllStudents();
    }
 
-   httpHeadersFile = new HttpHeaders({'Content-Type' : 'multipart/form-data;boundary=----WebKitFormBoundaryyrV7KO0BoCBuDbTL'})
-   selectedFile: File;
-   onFileSelected(event){
-    this.selectedFile = <File>event.target.files[0];
-    console.log(event);
-   }
-   onUpload(){
-     console.log("halo?");
-     const fd = new FormData();
-     fd.append('csv', this.selectedFile, this.selectedFile.name);
-     console.log(this.selectedFile);
-    this.http.put('https://signmeupapi.herokuapp.com/api/v1/registerstudents', fd,{
-      headers: this.httpHeadersFile
-    }
-     )
-    .subscribe(
-      res => {
-        console.log("hura");
-      },
-      err =>{
-        console.log(err);
-      }
-    )
-   }
-
-   selectFile(event: any): void {
+  selectFile(event: any): void {
     this.selectedFiles = event.target.files;
   }
   upload(): void {
