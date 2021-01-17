@@ -12,6 +12,8 @@ export class LoginComponent implements OnInit {
 
   email = '';
   password = '';
+  err1 = "";
+  err2 = "";
   user = {email: '', password1: '', password2: '', university: ''}
   constructor(private api:UserService, private router: Router) { }
   DisplayRegister = false;
@@ -40,7 +42,7 @@ export class LoginComponent implements OnInit {
         }
       },
       error =>{
-        console.log("nie ok");
+        this.err1 = "Incorrect credentials";
         console.log(error)
       }
     );
@@ -52,7 +54,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/'])
       },
       error =>{
-        console.log("nie ok");
+        this.err2 = "Incorrect credentials. Make sure password has min 8 characters and that given passwords are identical";
         console.log(error)
       }
     );

@@ -19,6 +19,7 @@
 						</div>
 						<input type="password" class="form-control" name="log" [(ngModel)]="password" placeholder="password" required>
 					</div>
+					<div style="color:#800000; margin-left: 100px ;">{{ err1 }}</div>
 					<div class="row align-items-center remember">
 						<input type="checkbox">Remember Me
 					</div>
@@ -38,7 +39,7 @@
 			</div>
 		</div>
 	</div>
-		<div class="card" style=" height: 30rem;" *ngIf="DisplayRegister">
+		<div class="card" style=" height: 32rem;" *ngIf="DisplayRegister">
 			<div class="card-header" >
 				<h3>Register</h3>
 			</div>
@@ -70,7 +71,7 @@
 						</div>
 						<input type="password" class="form-control" name="log" [(ngModel)]="user.password2" placeholder="password2" required>
 					</div>
-					
+					<div style="color:#800000; margin-left: 20px ;">{{ err2 }}</div>
 					<div class="row align-items-center remember">
 						<input type="checkbox">Remember Me
 					</div>

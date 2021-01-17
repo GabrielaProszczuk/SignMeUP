@@ -56,7 +56,6 @@ export class StudentComponent implements OnInit {
   hours = ['8:00-9:30', '9:30-11:00', '11:00-12:30', '12:30-14:00', '14:00-15:30', '15:30-17:00', '17:00-18:30','18:30-20:00'];
   start_hours = ['8:00', '9:30', '11:00', '12:30', '14:00', '15:30', '17:00','18:30'];
   end_hours = ['9:30', '11:00', '12:30', '14:00', '15:30', '17:00', '18:30','20:00'];
-  fields = [{id:null, name:'Informatyka'}];
   NewExchangeDisplay = false;
   EditExchangeDisplay = false;
   ChoicesDisplay = false;
