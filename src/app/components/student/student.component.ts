@@ -14,7 +14,7 @@ export class StudentComponent implements OnInit {
   points = 40;
   name:String = "";
   chosenField = {id:1, name:'', year:null};
-  fields = [{id:1, name:''}];
+  fields = [{id:1, name:'Informatyka'}, {id:2, name:'Automatyka'}];
   exchange ={id: '1', unwanted_subject_id: '', wanted_subject_id: '', priority: '4'};
   exchanges = [{id: '1', unwanted_subject_id: 'Algebra', wanted_subject_id: 'Analiza', priority: '4'}];
   subjects = [{id: '11', name: 'Algebra', day:'MONDAY', start_time: '09:30', end_time:'11:00'}];

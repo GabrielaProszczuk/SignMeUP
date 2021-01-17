@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   password = '';
   err1 = "";
   err2 = "";
+  msg = "";
   user = {email: '', password1: '', password2: '', university: ''}
   constructor(private api:UserService, private router: Router) { }
   DisplayRegister = false;
@@ -52,6 +53,7 @@ export class LoginComponent implements OnInit {
       response => {
           console.log("dodano admina");
           this.router.navigate(['/'])
+          this.msg = "Zarejestrowano";
       },
       error =>{
         this.err2 = "Incorrect credentials. Make sure password has min 8 characters and that given passwords are identical";
