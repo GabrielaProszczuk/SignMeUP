@@ -357,13 +357,14 @@
     </thead>
     <!--Table head-->
     <!--Table body-->
+ 
     <tbody>
-      <tr *ngFor="let exchange of exchanges">
+      <tr *ngFor="let student of students">
         <td *ngFor = "let column of headers">
-            {{ exchange[column] }}
+            {{ student[column] }}
         </td>
         <td>
-            <button (click)="deleteExchange(exchange.id)" class="btn btn-sm float-right login_btn btn-danger">x</button>
+            <button (click)="deleteUser(student.id)" class="btn btn-sm float-right login_btn btn-danger">x</button>
         </td>
     </tr>
     </tbody>

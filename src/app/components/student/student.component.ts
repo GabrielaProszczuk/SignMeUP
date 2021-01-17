@@ -14,7 +14,7 @@ export class StudentComponent implements OnInit {
   name:String = "";
   exchange ={id: '1', unwanted_subject_id: '', wanted_subject_id: '', priority: '4'};
   exchanges = [{id: '1', unwanted_subject_id: 'Algebra', wanted_subject_id: 'Analiza', priority: '4'}];
-  subjects = [{id: '', name: '', day:'', start_time: '', end_time:''}];
+  subjects = [{id: '11', name: 'Algebra', day:'Monday', start_time: '09:30', end_time:'11:00'}];
   headers = ['id', 'unwanted_subject_id', 'wanted_subject_id', 'priority'];
   fields = [{id:null, name:'Informatyka'}];
   NewExchangeDisplay = false;
@@ -28,6 +28,7 @@ export class StudentComponent implements OnInit {
     this.getMyUser();
     this.getStudentID();
     this.getMyFields();
+    
     
   }
   

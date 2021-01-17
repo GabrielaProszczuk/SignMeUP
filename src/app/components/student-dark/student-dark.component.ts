@@ -1,7 +1,6 @@
 import { Component, OnInit, EventEmitter, Input } from '@angular/core';
 import { UserService } from './../../services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
-
 @Component({
   selector: 'app-student-dark',
   templateUrl: './student-dark.component.html',
@@ -11,11 +10,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class StudentDarkComponent implements OnInit {
 
   token;
+  studentID;
   name:String = "";
   exchange ={id: '1', unwanted_subject_id: '', wanted_subject_id: '', priority: '4'};
   exchanges = [{id: '1', unwanted_subject_id: 'Algebra', wanted_subject_id: 'Analiza', priority: '4'}];
-  subjects = [{id: '', name: 'algebra', day:'', start_time: '', end_time:''}];
+  subjects = [{id: '11', name: 'Algebra', day:'Monday', start_time: '09:30', end_time:'11:00'}];
   headers = ['id', 'unwanted_subject_id', 'wanted_subject_id', 'priority'];
+  fields = [{id:null, name:'Informatyka'}];
   NewExchangeDisplay = false;
   EditExchangeDisplay = false;
   ChoicesDisplay = false;
@@ -25,8 +26,8 @@ export class StudentDarkComponent implements OnInit {
 
   constructor(private api:UserService, private router:Router) { 
     this.getMyUser();
-    this.getMyExchanges();
-    this.getAllSubjects();
+    this.getStudentID();
+    this.getMyFields(); 
   }
   
   ngOnInit(): void {
@@ -44,11 +45,11 @@ export class StudentDarkComponent implements OnInit {
   }
   getMyUser = () =>{
     this.token = this.api.getTokenStudent() || '{}';
-    console.log(this.token);
   }
-  getMyExchanges = () =>{
-    console.log(this.token.id)
-    this.api.getExchanges(this.token.id, this.token.student_id).subscribe(
+
+  getMyFields(){
+    /*
+    this.api.getMyFields(this.token.id, this.studentID).subscribe(
       data =>{
         console.log(data)
         this.exchanges = data;
@@ -57,10 +58,36 @@ export class StudentDarkComponent implements OnInit {
       error => {
           console.log(error);
       }
+    )*/
+  }
+  getStudentID(){
+    this.api.getStudentID(this.token.id).subscribe(
+      data =>{ 
+        this.studentID = data[0].id;  
+        this.getMyExchanges();  
+        this.getAllSubjects();   
+      },
+      error =>{
+        console.log(error);
+      })
+   }
+
+  getMyExchanges(){   
+    this.api.getExchanges(this.token.id, this.studentID).subscribe(
+      data =>{
+        this.exchanges = data;
+        
+      },
+      error => {
+          console.log(error);
+      }
     )
    }
+
+
+ 
    getAllSubjects = () =>{
-    this.api.getSubjects(this.token.university, this.token.department, this.token.year_id, this.token.field_id).subscribe(
+    this.api.getSubjects(this.token.id, this.studentID).subscribe(
       data =>{
         console.log(data);
         this.subjects = data;

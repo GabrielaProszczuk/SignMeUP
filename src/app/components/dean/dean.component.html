@@ -71,13 +71,13 @@
                
             <!-- Subject -->
             <label> Year </label>
-            <select (click)="getAllFields()" required [(ngModel)]="chosenYear.id" style="background-color:mintcream" class="browser-default text-dark custom-select mb-2" name="class">
+            <select (click)="getAllFields()" required [(ngModel)]="chosenYear.id" style="background-color:mintcream" class="browser-default text-dark custom-select mb-2" id="choose_year" name="class">
               <option value="" disabled>Choose year</option>
               <option  class="bg-light text-dark" *ngFor="let year of years" style="background-color:mintcream" [value]="year.id">{{year.start_year}}</option>
             </select>
 
             <label> Field of study </label>
-            <select required [(ngModel)]="newClass.field_of_study" style="background-color:mintcream" class="browser-default text-dark custom-select mb-2" name="class">
+            <select required [(ngModel)]="newClass.field_of_study" style="background-color:mintcream" class="browser-default text-dark custom-select mb-2" id="choose_field" name="class">
               <option value="" disabled>Choose field of study</option>
               <option  class="bg-light text-dark" *ngFor="let field of fields" style="background-color:mintcream" [value]="field.id">{{field.name}}</option>
             </select>
@@ -201,22 +201,22 @@
               </div>
               
             </div> 
-            
+            <p> Choose file to add list of students </p><br>
             <div class="row">
-              <div class="col-8">
+              <div class="col-4">
                 <label class="btn btn-default p-0">
                   <input type="file" (change)="selectFile($event)" />
                 </label>
               </div>
             
-              <div class="col-4">
+              <div class="col-2">
                 <button class="btn btn-danger btn-sm " [disabled]="!selectedFiles" (click)="upload()">
                   Upload
                 </button>
               </div>
             </div>
             
-            <div *ngIf="currentFile" class="progress my-3">
+            <div *ngIf="currentFile" class="progress my-3 col-6">
               <div
                 class="progress-bar progress-bar-info progress-bar-striped "
                 role="progressbar"
@@ -229,7 +229,7 @@
               </div>
             </div>
             
-            <div *ngIf="message" class="alert alert-secondary" role="alert">{{ message }}</div>
+            <div *ngIf="message" class="alert alert-danger col-6" role="alert">{{ message }}</div>
             <!--
             <div class="card mt-3">
               <div class="card-header">List of Files</div>
