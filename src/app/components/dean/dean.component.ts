@@ -28,8 +28,8 @@ export class DeanComponent implements OnInit {
   students = [{id:1, user: {id: null, email: ''}}];
   headers = ["id", "email"];
   newClass = {name: '', lecturer: '',description:'', day: '', type: '', start_time: '', end_time: '', field_of_study: ''};
-  days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  types = ['c', 'w'];
+  days = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
+  types = [{key: 'c', type: 'class'},{key: 'l', type: 'laboratory'}, {key: 'w', type: 'lecture'}];
   selectedFiles?: FileList;
   currentFile?: File;
   progress = 0;

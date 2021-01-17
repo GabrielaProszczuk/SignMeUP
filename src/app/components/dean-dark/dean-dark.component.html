@@ -83,13 +83,13 @@
             </select>
 
             <label>Subject name</label>
-            <input style="background-color:#333" [(ngModel)]="newClass.name" type="text" name="class" class="form-control mb-1" placeholder="Subject">
+            <input style="background-color:#333" [(ngModel)]="newClass.name" type="text" name="class" class="form-control mb-1 text-light" placeholder="Subject">
             
             <label>Lecturer</label>
-            <input style="background-color:#333" [(ngModel)]="newClass.lecturer" type="text" name="class" class="form-control mb-1" placeholder="Lecturer">
+            <input style="background-color:#333" [(ngModel)]="newClass.lecturer" type="text" name="class" class="form-control mb-1 text-light" placeholder="Lecturer">
             
             <label>Description</label>
-            <input style="background-color:#333" [(ngModel)]="newClass.description" type="text" name="class" class="form-control mb-1" placeholder="Description">
+            <input style="background-color:#333" [(ngModel)]="newClass.description" type="text" name="class" class="form-control mb-1 text-light" placeholder="Description">
             
 
             <label> Day </label>
@@ -101,7 +101,7 @@
             <label> Type </label>
             <select required [(ngModel)]="newClass.type" style="background-color:#333" class="browser-default text-light custom-select mb-2" name="class">
               <option value="" disabled>Choose type</option>
-              <option  class="bg-dark text-light" *ngFor="let type of types" style="background-color:#333" [value]="type">{{type}}</option>
+              <option  class="bg-dark text-light" *ngFor="let type of types" style="background-color:#333" [value]="type.key">{{type.type}}</option>
             </select>
             
             <label for="appt1-time" style="margin-right:27px;">Start time</label>

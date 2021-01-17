@@ -12,10 +12,17 @@ export class StudentDarkComponent implements OnInit {
   token;
   studentID;
   name:String = "";
+  chosenField = {id:1, name:'', year:null};
+  fields = [{id:1, name:''}];
   exchange ={id: '1', unwanted_subject_id: '', wanted_subject_id: '', priority: '4'};
   exchanges = [{id: '1', unwanted_subject_id: 'Algebra', wanted_subject_id: 'Analiza', priority: '4'}];
   subjects = [{id: '11', name: 'Algebra', day:'Monday', start_time: '09:30', end_time:'11:00'}];
   headers = ['id', 'unwanted_subject_id', 'wanted_subject_id', 'priority'];
+  days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday'];
+  hours = ['8:00-9:30', '9:30-11:00', '11:00-12:30', '12:30-14:00', '14:00-15:30', '15:30-17:00', '17:00-18:30','18:30-20:00'];
+  indexes =[0,1,2,3,4,5,6,7];
+  start_hours = ['8:00', '9:30', '11:00', '12:30', '14:00', '15:30', '17:00','18:30'];
+  end_hours = ['9:30', '11:00', '12:30', '14:00', '15:30', '17:00', '18:30','20:00'];
   fields = [{id:null, name:'Informatyka'}];
   NewExchangeDisplay = false;
   EditExchangeDisplay = false;

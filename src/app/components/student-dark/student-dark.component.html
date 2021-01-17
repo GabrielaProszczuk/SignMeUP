@@ -66,211 +66,57 @@
         </div>
 
         <div class="container-fluid text-dark"  *ngIf="ScheduleDisplay" >
-          <style type="text/css">
-            .tg  {border-collapse:collapse;border-spacing:0;}
-            .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-              overflow:hidden;padding:0px 5px;word-break:normal;}
-            .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-              font-weight:normal;overflow:hidden;padding:0px 5px;word-break:normal;}
-            .tg .tg-xnt4{background-color:#dae8fc;border-color:#333333;text-align:center;vertical-align:top}
-            .tg .tg-34fe{background-color:#c0c0c0;border-color:inherit;text-align:center;vertical-align:top}
-            .tg .tg-c4ww{background-color:#cbcefb;border-color:inherit;text-align:center;vertical-align:top}
-            .tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
-            .tg .tg-llyw{background-color:#c0c0c0;border-color:inherit;text-align:left;vertical-align:top}
-            .tg .tg-kfkg{background-color:#dae8fc;border-color:inherit;text-align:center;vertical-align:top}
-            .tg .tg-amug{background-color:#cbcefb;border-color:#333333;text-align:center;vertical-align:top}
-            .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
-            </style>
-            <table class="tg">
-            <thead>
-              <tr>
-                <th class="tg-c3ow"></th>
-                <th class="tg-34fe">poniedziałek</th>
-                <th class="tg-34fe">wtorek</th>
-                <th class="tg-34fe">środa</th>
-                <th class="tg-34fe">czwartek</th>
-                <th class="tg-34fe">piątek</th>
+          <table id="tablePreview" class="table table-hover table-dark table-bordered table-striped table-sm mt-3">
+            <!--Table head-->
+              <thead>
+                <tr>
+                  <th></th>
+                  <th *ngFor = "let day of days">
+                    {{ day }}
+                </th>
+                </tr>
+              </thead>
+              <!--Table head-->
+              <!--Table body-->
+           
+              <tbody>
+                <tr *ngFor="let index of indexes">
+                  {{ start_hours[index] }} - {{ end_hours[index] }}
+                  <td *ngFor = "let day of days">
+                      hello
+                  </td>
+                  
               </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="tg-34fe">8:00-8:30</td>
-                <td class="tg-c4ww" rowspan="3">8:00-9:00<br>Pracownia inżynierska dyplomowa<br>Ćwiczenia laboratoryjne<br>Janusz Teneta</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-              </tr>
-              <tr>
-                <td class="tg-34fe">8:30-9:00</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-              </tr>
-              <tr>
-                <td class="tg-34fe">9:00-9:30</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-xnt4" rowspan="3">9:00-10:30<br>Systemy głosowe<br>Wykład<br>Andrzej Izworski</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-              </tr>
-              <tr>
-                <td class="tg-34fe">9:30-10:00</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-              </tr>
-              <tr>
-                <td class="tg-34fe">10:00-10:30</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-              </tr>
-              <tr>
-                <td class="tg-34fe">10:30-11:00</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-kfkg" rowspan="3">10:30-12:00<br>Modele układów elektronicznych<br>Wykład<br>Maciej Rosół</td>
-              </tr>
-              <tr>
-                <td class="tg-34fe">11:30-12:00</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-amug" rowspan="3">11:30-13:00<br>Programowanie sterowników PLC<br>Ćwiczenia laboratoryjne<br>Janusz Teneta</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-              </tr>
-              <tr>
-                <td class="tg-34fe">12:00-12:30</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-              </tr>
-              <tr>
-                <td class="tg-34fe">12:30-13:00</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-              </tr>
-              <tr>
-                <td class="tg-34fe">13:00-13:30</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-kfkg" rowspan="3">13:00-14:30<br>Modele układów elektronicznych<br>Wykład<br>Maciej Rosół</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-              </tr>
-              <tr>
-                <td class="tg-34fe">13:30-14:00</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-              </tr>
-              <tr>
-                <td class="tg-34fe">14:00-14:30</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c4ww" rowspan="3">14:00-15:30<br>Sztuczna Inteligencja<br>Ćwiczenia audytoryjne<br>Mirosław Jabłoński</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-              </tr>
-              <tr>
-                <td class="tg-34fe">14:30-15:00</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-              </tr>
-              <tr>
-                <td class="tg-34fe">15:00-15:30</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c4ww" rowspan="3">15:00-16:30<br>Systemy głosowe<br>Ćwiczenia laboratoryjne<br>Andrzej Izworski</td>
-              </tr>
-              <tr>
-                <td class="tg-34fe">15:30-16:00</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-              </tr>
-              <tr>
-                <td class="tg-34fe">16:00-16:30</td>
-                <td class="tg-kfkg" rowspan="3">16:00-17:30<br>Programowanie sterowników PLC<br>Wykład<br>Janusz Teneta</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c4ww" rowspan="3">16:00-17:30<br>Modele układów elektronicznych<br>Ćwiczenia laboratoryjne<br>Maciej Rosół</td>
-              </tr>
-              <tr>
-                <td class="tg-34fe">16:30-17:00</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-              </tr>
-              <tr>
-                <td class="tg-34fe">17:00-17:30</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-              </tr>
-              <tr>
-                <td class="tg-34fe">17:30-18:00</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-              </tr>
-              <tr>
-                <td class="tg-34fe">18:00-18:30</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-              </tr>
-              <tr>
-                <td class="tg-34fe">18:30-19:00</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-kfkg" rowspan="3">18:30-20:00<br>Sztuczna Inteligencja<br>Wykład<br>Jeremi Przybyło</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-              </tr>
-              <tr>
-                <td class="tg-34fe">19:00-19:30</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-              </tr>
-              <tr>
-                <td class="tg-34fe">19:30-20:00</td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-                <td class="tg-c3ow"></td>
-              </tr>
-              <tr>
-                <td class="tg-llyw">20:00-20:30</td>
-                <td class="tg-0pky"></td>
-                <td class="tg-0pky"></td>
-                <td class="tg-0pky"></td>
-                <td class="tg-0pky"></td>
-                <td class="tg-0pky"></td>
-              </tr>
-            </tbody>
+              </tbody>
+              <!--Table body-->
             </table>
         </div>
 
         <div class="container-fluid" *ngIf="ChoicesDisplay" >
-          <p>Tu będzie możliwośc wyboru przedmiotów.</p>
+          <table id="tablePreview" class="table table-hover table-dark table-bordered table-striped table-sm mt-3">
+            <!--Table head-->
+              <thead>
+                <tr>
+                  <th></th>
+                  <th *ngFor = "let day of days">
+                    {{ day }}
+                </th>
+                </tr>
+              </thead>
+              <!--Table head-->
+              <!--Table body-->
+           
+              <tbody>
+                <tr *ngFor="let index of indexes">
+                  {{ start_hours[index] }} - {{ end_hours[index] }}
+                  <td *ngFor = "let day of days">
+                      hello
+                  </td>
+                  
+              </tr>
+              </tbody>
+              <!--Table body-->
+            </table>
         </div>
 
         <div class="container-fluid text-light border-dark rounded" *ngIf="NewExchangeDisplay">
@@ -279,8 +125,13 @@
                <!-- Textbox -->
                <div class="well border-dark rounded text-light" >
                 <form class="border border-dark rounded mt-3 mb-1 p-2"  >
-               
+                
                   <!-- Subject -->
+                  <label>Field of study</label>
+                  <select required [(ngModel)]="chosenField" style="background-color: #333" class="browser-default text-dark custom-select mb-2" name="exchange">
+                    <option value="" disabled>Choose option</option>
+                    <option  class="bg-dark text-light" *ngFor="let field of fields" style="background-color: #333;" [value]="subject.id">{{subject.name}}</option>
+                  </select>
                   <label>From</label>
                   <select required [(ngModel)]="exchange.from" style="background-color: #333" class="browser-default text-light custom-select mb-2" name="exchange">
                     <option value="" disabled>Choose option</option>
@@ -306,8 +157,31 @@
             </div>
           <div class="col-8">
              <!-- Textbox -->
-              <div class="well mt-3 rounded " style="background-color:#333">
-                Schedule
+              <div class="well mt-3 rounded " >
+                <table id="tablePreview" class="table table-hover table-dark table-bordered table-striped table-sm mt-3">
+                  <!--Table head-->
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th *ngFor = "let day of days">
+                          {{ day }}
+                      </th>
+                      </tr>
+                    </thead>
+                    <!--Table head-->
+                    <!--Table body-->
+                 
+                    <tbody>
+                      <tr *ngFor="let index of indexes">
+                        {{ start_hours[index] }} - {{ end_hours[index] }}
+                        <td *ngFor = "let day of days">
+                            hello
+                        </td>
+                        
+                    </tr>
+                    </tbody>
+                    <!--Table body-->
+                  </table>
               </div>
             </div>
           </div>
@@ -340,7 +214,7 @@
 
           <div class="container-fluid" *ngIf="EditExchangeDisplay">
             <div class="row">
-              <div class="col-6">
+              <div class="col-5">
                  <!-- Textbox -->
                  <div class="well ">
                   <!--Table-->
@@ -357,10 +231,11 @@
   </thead>
   <!--Table head-->
   <!--Table body-->
+ 
   <tbody>
     <tr *ngFor="let ex of exchanges">
       <td *ngFor = "let column of headers">
-          {{ column }}
+          {{ ex[column] }}
       </td>
       <td>
           <button (click)="deleteExchange(ex.id)" class="btn btn-sm float-right login_btn btn-danger">x</button>
@@ -373,10 +248,33 @@
 <!--Table-->
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-7">
                <!-- Textbox -->
-                <div class="well mt-3 rounded" style="background-color:#333">
-                  Schedule
+                <div class="well mt-3 rounded">
+                  <table id="tablePreview" class="table table-hover table-dark table-bordered table-striped table-sm mt-3">
+                    <!--Table head-->
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th *ngFor = "let day of days">
+                            {{ day }}
+                        </th>
+                        </tr>
+                      </thead>
+                      <!--Table head-->
+                      <!--Table body-->
+                   
+                      <tbody>
+                        <tr *ngFor="let index of indexes">
+                          {{ start_hours[index] }} - {{ end_hours[index] }}
+                          <td *ngFor = "let day of days">
+                              hello
+                          </td>
+                          
+                      </tr>
+                      </tbody>
+                      <!--Table body-->
+                    </table>
                 </div>
               </div>
             </div> 

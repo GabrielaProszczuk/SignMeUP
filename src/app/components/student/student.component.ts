@@ -11,11 +11,29 @@ export class StudentComponent implements OnInit {
 
   token;
   studentID;
+  points = 40;
   name:String = "";
+  chosenField = {id:1, name:'', year:null};
+  fields = [{id:1, name:''}];
   exchange ={id: '1', unwanted_subject_id: '', wanted_subject_id: '', priority: '4'};
   exchanges = [{id: '1', unwanted_subject_id: 'Algebra', wanted_subject_id: 'Analiza', priority: '4'}];
   subjects = [{id: '11', name: 'Algebra', day:'Monday', start_time: '09:30', end_time:'11:00'}];
   headers = ['id', 'unwanted_subject_id', 'wanted_subject_id', 'priority'];
+  days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday'];
+  indexes = [0,1,2,3,4,5,6,7];
+
+  myClasses = [
+  {name: 'Matematyka', lecturer: '',description:'', day: 'Monday', type: '', start_time: '8:00', end_time: '9:30', field_of_study: ''},
+  {name: 'Język Polski', lecturer: '',description:'', day: 'Tuesday', type: '', start_time: '9:30', end_time: '11:00', field_of_study: ''},
+  {name: 'Język Angielski', lecturer: '',description:'', day: 'Wednesday', type: '', start_time: '11:00', end_time: '12:30', field_of_study: ''},
+  {name: 'Fizyka superzaawansowana', lecturer: '',description:'', day: 'Thursday', type: '', start_time: '14:00', end_time: '15:30', field_of_study: ''},
+  {name: 'Chemia też superzaawansowana', lecturer: '',description:'', day: 'Friday', type: '', start_time: '17:00', end_time: '18:30', field_of_study: ''},
+  {name: 'WOS bardzo nudny', lecturer: '',description:'', day: 'Wednesday', type: '', start_time: '12:30', end_time: '14:00', field_of_study: ''},
+  {name: 'Historia i społeczeństwo', lecturer: '',description:'', day: 'Tuesday', type: '', start_time: '11:00', end_time: '12:30', field_of_study: ''}];
+
+  hours = ['8:00-9:30', '9:30-11:00', '11:00-12:30', '12:30-14:00', '14:00-15:30', '15:30-17:00', '17:00-18:30','18:30-20:00'];
+  start_hours = ['8:00', '9:30', '11:00', '12:30', '14:00', '15:30', '17:00','18:30'];
+  end_hours = ['9:30', '11:00', '12:30', '14:00', '15:30', '17:00', '18:30','20:00'];
   fields = [{id:null, name:'Informatyka'}];
   NewExchangeDisplay = false;
   EditExchangeDisplay = false;
@@ -27,9 +45,7 @@ export class StudentComponent implements OnInit {
   constructor(private api:UserService, private router:Router) { 
     this.getMyUser();
     this.getStudentID();
-    this.getMyFields();
-    
-    
+    this.getMyFields();   
   }
   
   ngOnInit(): void {

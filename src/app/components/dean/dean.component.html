@@ -101,7 +101,7 @@
             <label> Type </label>
             <select required [(ngModel)]="newClass.type" style="background-color:mintcream" class="browser-default text-dark custom-select mb-2" name="class">
               <option value="" disabled>Choose type</option>
-              <option  class="bg-light text-dark" *ngFor="let type of types" style="background-color:mintcream" [value]="type">{{type}}</option>
+              <option  class="bg-light text-dark" *ngFor="let type of types" style="background-color:mintcream" [value]="type.key">{{type.type}}</option>
             </select>
             
             <label for="appt1-time" style="margin-right:27px;">Start time</label>
