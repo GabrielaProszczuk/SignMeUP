@@ -1,12 +1,19 @@
 import { Component, OnInit} from '@angular/core';
-import { UserService } from './../../services/user.service';
+//import { UserService } from './../../services/user.service';
 import { User } from './../../models/user';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Apollo } from 'apollo-angular';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import gql from 'graphql-tag';
+import { Department, Query } from './../../../types';
+import { UserService } from 'src/app/services/user.service';
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css'],
-  providers: [UserService]
+  providers: [/*UserService*/]
 })
 export class AdminComponent implements OnInit {
   
@@ -18,8 +25,23 @@ export class AdminComponent implements OnInit {
   MainDisplay = true;
   UsersDisplay = false;
   PasswordDisplay = false;
+  departments: Observable<Query>;
+  constructor(private apollo: Apollo, private api:UserService){  }
+  name:string ='';
+  ngOnInit(){ 
+    this.name = localStorage.getItem('username');
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  }
+
+  addUser() {
+    this.api.addUser(this.registeredUser.department, this.registeredUser.username, this.registeredUser.password, this.registeredUser.email);
+   }
 
 
+/*
   constructor(private api:UserService, private router: Router) {
     this.getMyUser();
     this.getAllOfficials();
@@ -28,10 +50,7 @@ export class AdminComponent implements OnInit {
     this.registeredUser = new User('','',2, null, this.token.university);
   }
   ngOnInit(): void {
-    $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
+
   }
 
 
@@ -87,17 +106,7 @@ export class AdminComponent implements OnInit {
       }
     )
    }
-   addUser() {
-    this.api.addUser(this.registeredUser).subscribe(
-      response => {
-        alert('User has been added to database');
-        this.getAllOfficials();
-      },
-      error =>{
-        console.log(error)
-      }
-    );
-   }
+
    deleteUser(id){
     this.api.deleteUser(id).subscribe(
       data => {
@@ -109,4 +118,5 @@ export class AdminComponent implements OnInit {
       }
     );
    }
+   */
 }

@@ -3,6 +3,10 @@ import { HttpClient, HttpHeaders, HttpParams, HttpRequest, HttpEvent  } from '@a
 import { Observable } from 'rxjs';
 import { serializeNodes } from '@angular/compiler/src/i18n/digest';
 import { tap,map } from 'rxjs/operators';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
+import { Token } from './../../types';
+import { Router, ActivatedRoute } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +15,7 @@ export class UserService {
   baseurl = "https://signmeupapi.herokuapp.com";
   httpHeaders = new HttpHeaders({'Content-Type':'application/json'});
   httpHeadersFile = new HttpHeaders({'Content-Type' : 'multipart/form-data;boundary=----WebKitFormBoundaryyrV7KO0BoCBuDbTL'})
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private apollo: Apollo, private router: Router) { }
 
   upload(file: File): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
@@ -31,35 +35,164 @@ export class UserService {
     return this.http.get(`${this.baseurl}/api/v1/`);
   }
 
+//MUTACJE
 
-  //autoryzacja użytkownika
-  login(email, password): Observable<any>{
-   return this.http.post<{token}>(this.baseurl + '/api/v1/rest-auth/login/', {email, password}).pipe(
-     tap(
-       res => {
-         //year field studentID
-    localStorage.setItem('token', res.key);
-    localStorage.setItem('id', res.user.id);
-   localStorage.setItem('email', res.user.email);
+LOGIN_MUTATION = gql`
 
-    localStorage.setItem('university', res.user.university.id);
-    },
-    err => {
-    console.log(err);
-    }))
+  mutation tokenAuthQuery($username: String!, $password: String!) {
+    tokenAuth(
+      username: $username,
+      password: $password,
+    ) {
+      token
+    }
   }
+`;
 
-  register(user) { 
-    return  this.http.post<{token: string}>(this.baseurl + '/api/v1/rest-auth/registration/', user);
+ADMIN_MUTATION = gql`
+      query{	
+        me{
+          universityAdmin{
+            user{
+              username
+            }
+            id
+          }
+        }
+      }
+`
+DEAN_MUTATION = gql`
+      query{	
+        me{
+          departmentAdmin{
+            user{
+              username
+            }
+            id
+          }
+        }
+      }
+`
+STUDENT_MUTATION = gql`
+      query{	
+        me{
+          students{
+            user{
+              username
+            }
+            id
+          }
+        }
+      }
+`
+
+
+REGISTER_ADMIN_MUTATION = gql`
+      mutation createUniversityAdmin($username: String!, $password: String!, $email: String!, $universityName: String! ){
+        createUniversityAdmin(
+            username: $username
+            password: $password
+            email: $email
+            universityName: $universityName
+        ){
+            universityAdmin{
+                user{
+                    username
+                    email
+                }
+            }
+        }
+      }
+`
+CREATE_DEPARTMENT_MUTATION = gql`
+      mutation createDepartment($name: String!){
+        createDepartment(
+          name: $name
+        ){
+          department{
+            name
+          }
+        }
+      }
+`
+CREATE_DEPARTMENT_ADMIN_MUTATION = gql`
+      mutation createDepartmentAdmin($departmentId: Number!, $username: String!, $password: String!, $email: String!){
+        createDepartmentAdmin(
+          departmentId: $departmentId,
+          username: $username,
+          password: $password,
+          email: $email
+        ){
+          departmentAdmin(
+            user{
+              username
+            }
+          )
+        }
+      }
+`
+//autoryzacja użytkownika
+login(name: string, pass: string) {
+  this.apollo.mutate({
+    mutation: this.LOGIN_MUTATION,
+    variables: {
+      username: name,
+      password: pass
+    }
+  }).subscribe(
+    response=> {
+     console.log(response.data)
+     localStorage.setItem('token', response.data.tokenAuth.token);
+     this.apollo.mutate({
+      mutation: this.ADMIN_MUTATION,
+    }).subscribe(
+      res=>{
+        if(res.data.me.universityAdmin.id){
+          localStorage.setItem('username',res.data.me.universityAdmin.user.username)
+          this.router.navigate(['/admin'])
+        }
+      }      
+    );
+    this.apollo.mutate({
+      mutation: this.DEAN_MUTATION,
+    }).subscribe(
+      res=>{
+        if(res.data.me.departmentAdmin.id){
+          localStorage.setItem('username',res.data.me.departmentAdmin.user.username)
+          this.router.navigate(['/dean'])
+        }
+      }      
+    );
+    this.apollo.mutate({
+      mutation: this.DEAN_MUTATION,
+    }).subscribe(
+      res=>{
+        if(res.data.me.students.id){
+          localStorage.setItem('username',res.data.me.students.user.username)
+          this.router.navigate(['/student'])
+        }
+      }      
+    );
+});
+}
+
+  register(name: string, pass: string, mail: string, university: string) { 
+    this.apollo.mutate({
+      mutation: this.REGISTER_ADMIN_MUTATION,
+      variables: {
+        username: name,
+        password: pass,
+        email: mail,
+        universityName: university
+      }
+    }).subscribe(
+      response=> {
+        this.router.navigate(['/login'])
+      })
   }
 
   logout() {
     localStorage.clear();
-    console.log("user logged put")
-  }
-
-  public get loggedIn(): boolean{
-    return localStorage.getItem('token') !==  null;
   }
 
   getToken(){
@@ -75,7 +208,7 @@ export class UserService {
     department: localStorage.getItem('department'), year: localStorage.getItem('year')  }
   }
 
-  getStudentID(id): Observable<any>{
+  getStudentID(id: number): Observable<any>{
     return this.http.get(this.baseurl + '/api/v1/users/' + id + '/students/',
      {headers: this.httpHeaders} )
   }
@@ -112,8 +245,19 @@ export class UserService {
   }
 
   //dodawanie użytkowników, aplikacji
-  addUser(userData): Observable<any>{
-    return this.http.post(this.baseurl + '/api/v1/users/', userData );
+  addUser(department: number, name: string, pass: string, mail: string){
+    this.apollo.mutate({
+      mutation: this.CREATE_DEPARTMENT_ADMIN_MUTATION,
+      variables: {
+        departmentId: department,
+        username: name,
+        password: pass,
+        email: mail
+      }
+    }).subscribe(
+      response=> {
+        console.log("ok");
+      })
   }
 
   addExchange(userId, studentId, data): Observable<any>{
