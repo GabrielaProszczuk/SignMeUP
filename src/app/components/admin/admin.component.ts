@@ -1,12 +1,18 @@
 import { Component, OnInit} from '@angular/core';
-import { UserService } from './../../services/user.service';
+//import { UserService } from './../../services/user.service';
 import { User } from './../../models/user';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Apollo } from 'apollo-angular';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import gql from 'graphql-tag';
+import { Department, Query } from './../../../types';
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css'],
-  providers: [UserService]
+  providers: [/*UserService*/]
 })
 export class AdminComponent implements OnInit {
   
@@ -18,8 +24,17 @@ export class AdminComponent implements OnInit {
   MainDisplay = true;
   UsersDisplay = false;
   PasswordDisplay = false;
+  departments: Observable<Query>;
+  constructor(private apollo: Apollo){  }
+  name:string ='';
+  ngOnInit(){ 
+    this.name = localStorage.getItem('username')
+  }
 
 
+
+
+/*
   constructor(private api:UserService, private router: Router) {
     this.getMyUser();
     this.getAllOfficials();
@@ -109,4 +124,5 @@ export class AdminComponent implements OnInit {
       }
     );
    }
+   */
 }

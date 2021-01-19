@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class AdminDarkComponent implements OnInit {
   
-  token;
+  token: any;
   officials = [{id: 1, email: 'jola@jola.pl'}];
   departments = [{id:1, name: 'weaiib', university:'' }, {id:2, name:'wiet', university:''}, {id:3, name:'wimip', university:''}];
   headers = ["id", "email"];
@@ -25,7 +25,7 @@ export class AdminDarkComponent implements OnInit {
     this.getAllOfficials();
     console.log(this.token.token)
     this.getAllDepartments();
-    this.registeredUser = new User('','',2, null, this.token.university);
+    this.registeredUser = new User('','',2, 0, this.token.university);
   }
   ngOnInit(): void {
     $("#menu-toggle").click(function(e) {

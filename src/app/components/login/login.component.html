@@ -10,7 +10,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" class="form-control" name="log" [(ngModel)]="email" placeholder="email" required>
+						<input type="text" class="form-control" name="log" [(ngModel)]="username" placeholder="username" required>
 						
 					</div>
 					<div class="input-group form-group">
@@ -57,19 +57,19 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
+						<input type="username" class="form-control" name="log" [(ngModel)]="user.username" placeholder="username" required>
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+						<input type="password" class="form-control" name="log" [(ngModel)]="user.password" placeholder="password" required>
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
 						<input type="email" class="form-control" name="log" [(ngModel)]="user.email" placeholder="email" required>
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-key"></i></span>
-						</div>
-						<input type="password" class="form-control" name="log" [(ngModel)]="user.password1" placeholder="password1" required>
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-key"></i></span>
-						</div>
-						<input type="password" class="form-control" name="log" [(ngModel)]="user.password2" placeholder="password2" required>
 					</div>
 					<div style="color:#800000; margin-left: 20px ;">{{ err2 }}</div>
 					<div style="color:#800000; margin-left: 100px ;">{{ msg }}</div>
