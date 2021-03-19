@@ -16,6 +16,10 @@ import { JwtService } from './services/jwt.service';
 import { StudentDarkComponent } from './components/student-dark/student-dark.component';
 import { DeanDarkComponent } from './components/dean-dark/dean-dark.component';
 import { AdminDarkComponent } from './components/admin-dark/admin-dark.component';
+import { Apollo, APOLLO_OPTIONS } from 'apollo-angular';
+import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http'
+import {InMemoryCache} from 'apollo-cache-inmemory';
+
 
 @NgModule({
   declarations: [
@@ -35,6 +39,7 @@ import { AdminDarkComponent } from './components/admin-dark/admin-dark.component
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    HttpLinkModule
   //  JwtModule.forRoot({
      // config: {
        // tokenGetter: function  tokenGetter() {
@@ -46,6 +51,18 @@ import { AdminDarkComponent } from './components/admin-dark/admin-dark.component
   ],
   providers: [
     {
+      provide: APOLLO_OPTIONS,
+      useFactory(httpLink: HttpLink) {
+        return {
+          cache: new InMemoryCache(),
+          link: httpLink.create({
+            uri: 'http://signmeupgqlapi.herokuapp.com/graphql/',
+          }),
+        };
+      },
+      deps: [HttpLink],
+    },
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtService,
       multi: true
@@ -53,4 +70,10 @@ import { AdminDarkComponent } from './components/admin-dark/admin-dark.component
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+
+  constructor(
+    apollo: Apollo,
+    httpLink: HttpLink
+  ){}
+}

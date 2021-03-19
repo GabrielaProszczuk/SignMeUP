@@ -18,57 +18,50 @@ import { UserService } from 'src/app/services/user.service';
 export class AdminComponent implements OnInit {
   
   token;
-  officials = [{id: 1, email: 'jola@jola.pl'}];
-  departments = [{id:1, name: 'weaiib', university:'' }, {id:2, name:'wiet', university:''}, {id:3, name:'wimip', university:''}];
-  headers = ["id", "email"];
-  registeredUser: User;
+  departments: any;
+  officials: any;
+  headers = ["username", "email"];
+  registeredUser: {email: string, department: number, password: string, username: string};
   MainDisplay = true;
   UsersDisplay = false;
   PasswordDisplay = false;
-  departments: Observable<Query>;
-  constructor(private apollo: Apollo, private api:UserService){  }
-  name:string ='';
+  name: any;
+  addedInfo = false;
+  addedDepInfo = false;
+  newDepartment: string;
+
+  constructor(private apollo: Apollo, private api:UserService, private router: Router){ 
+    this.registeredUser = {email: '', department: 0, password: '', username: ''};
+    this.newDepartment = '';
+   }
+  
   ngOnInit(){ 
+    this.addedInfo = false;
+    this.addedDepInfo = false;
     this.name = localStorage.getItem('username');
+    this.api.getDepartments()
+    this.departments = JSON.parse(localStorage.getItem('departments') || '')
     $("#menu-toggle").click(function(e) {
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
   }
 
+  redirectTo(uri:string){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+    this.router.navigate([uri]));
+ }
+
   addUser() {
-    this.api.addUser(this.registeredUser.department, this.registeredUser.username, this.registeredUser.password, this.registeredUser.email);
+    this.api.addUser(Number(this.registeredUser.department), this.registeredUser.username, this.registeredUser.password, this.registeredUser.email);
+    this.addedInfo = true
    }
 
-
-/*
-  constructor(private api:UserService, private router: Router) {
-    this.getMyUser();
-    this.getAllOfficials();
-    console.log(this.token.token)
-    this.getAllDepartments();
-    this.registeredUser = new User('','',2, null, this.token.university);
-  }
-  ngOnInit(): void {
-
-  }
-
-
-  getAllDepartments = () =>{
-    this.api.getDepartments(this.token.university).subscribe(
-      data =>{
-        this.departments = data;
-        
-      },
-      error => {
-          console.log(error);
-      }
-    )
+   addDepartment(){
+     this.api.addDepartment(this.newDepartment)
+     this.addedDepInfo = true;   
    }
-
-  getMyUser = () =>{
-    this.token = this.api.getTokenDean() || '{}';
-  }
+  
   toDarkMode(){
     this.router.navigate(['/admin-dark'])
   }
@@ -98,8 +91,7 @@ export class AdminComponent implements OnInit {
    getAllOfficials = () =>{
     this.api.getOfficials().subscribe(
       data =>{
-        this.officials = data;
-        
+        this.officials = data;       
       },
       error => {
           console.log(error);
@@ -118,5 +110,5 @@ export class AdminComponent implements OnInit {
       }
     );
    }
-   */
+
 }

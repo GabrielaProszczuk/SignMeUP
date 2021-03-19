@@ -13,7 +13,7 @@ export class JwtService implements HttpInterceptor{
     let serv = this.injector.get(UserService)
     let tokenizedReq = req.clone({
       setHeaders: {
-        Authorization: `Token ${serv.getToken()}`
+        Authorization: `JWT ${serv.getToken()}`
       }
     })
     return next.handle(tokenizedReq)

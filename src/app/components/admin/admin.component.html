@@ -3,7 +3,7 @@
         <!-- Sidebar -->
         <div class="bg-light border-right" id="sidebar-wrapper">
           <div class="list-group-item list-group-item-action bg-light font-weight-bold" (click)="showMain()" >
-           <div (click)="showMain()"> {{ token.email }}</div>
+           <div (click)="showMain()"> {{ name }}</div>
           </div>
           <div class="list-group list-group-flush">
             <button (click)="showUsers()"class="list-group-item list-group-item-action bg-light" (click)="showUsers()">See admins</button>
@@ -52,33 +52,30 @@
   
           <div class="container-fluid" *ngIf="UsersDisplay">
             <div class="row" style="margin-left: 20px; margin-top: 10px;">
-                <div class="d-flex justify-content-center" style=" margin-right: 10px;">
+                <div class="d-flex justify-content-center" style=" margin-right: 10px; margin-bottom: 10px;">
                     <div class="card">
                     <div class="card-header">
                         <h5>Deparatment's admins</h5>
                     </div>
                 <table class="table table-striped table-hover">
-                    <thead>
-                    <tr>
-                        <th *ngFor="let column of headers" >
-                            {{ column }}
-                        </th>
-                    </tr>
-                </thead>
+               
                 <tbody>
-                    <tr *ngFor="let official of officials">
-                        <td *ngFor = "let column of headers">
-                            {{ official[column] }}
-                        </td>
-                        <td>
-                            <button (click)="deleteUser(official.id)" class="btn btn-sm float-right login_btn btn-danger">x</button>
-                        </td>
-                    </tr>
+                    <p *ngFor="let dep of departments">
+                        <tr *ngFor = "let adm of dep.departmentAdmins">
+                          <td *ngFor = "let h of headers">
+                            {{ adm.user[h] }}
+                          </td>
+                            <td>
+                              <button class="button btn-danger rounded" type="submit" (click) = "deleteUser()">X</button>
+                            </td>
+                        </tr>
+                       
+                      </p>
                 </tbody>
                 </table>
                 </div>
                 </div>
-                    <div class="d-flex justify-content-center h-50" style=" margin-right: 10px;">
+                    <div class="d-flex justify-content-center h-50" style=" margin-right: 10px; margin-bottom: 10px;">
                         <div class="card">
                             <div class="card-header">
                                 <h5>Add user</h5>
@@ -93,11 +90,18 @@
                                 <input [(ngModel)] ="registeredUser.email" type="text" class="form-control"  name="student" placeholder="email" required>
                          
                             </div>
-                            
+                            <div class="input-group form-group">
+                              <div class="input-group-prepend">
+                                  <span class="input-group-text"><i class="fas fa-user"></i></span>
+                              </div>
+                              <input [(ngModel)] ="registeredUser.username" type="text" class="form-control"  name="student" placeholder="username" required>
+                       
+                          </div>
                             <form class="border border-light p-1">
                               <label>Choose department</label>
                               <select [(ngModel)]="registeredUser.department" class="browser-default custom-select mb-4"  name="student">
                                 <option value="" disabled>Choose department</option>
+                                
                                  <option *ngFor="let department of departments" [value]="department.id">{{department.name}}</option>
                               </select>
                             </form>
@@ -114,10 +118,37 @@
                                     <a routerLink="/admin" style="text-decoration: none; color: white;">Register</a>
                                 </button>
                             </div>
+                            <p *ngIf="addedInfo" style = "color:crimson; "> Department admin added! </p>
                         </form>
                     </div>
                 </div>
                 </div>
+                <div class="d-flex justify-content-center h-50" style=" margin-right: 10px;">
+                  <div class="card">
+                      <div class="card-header">
+                          <h5>Add department</h5>
+                      </div>
+              <div class="card-body">
+                  <form>
+          
+                      <div class="input-group form-group">
+                          <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-user"></i></span>
+                          </div>
+                          <input [(ngModel)] ="newDepartment" type="text" class="form-control"  name="newDepartment" placeholder="name" required>
+                   
+                      </div>
+      
+                      <div class="form-group">
+                          <button (click) = "addDepartment()" type="submit"  class="btn float-right login_btn btn-danger">
+                              <a routerLink="/admin" style="text-decoration: none; color: white;">Add</a>
+                          </button>
+                      </div>
+                      <p *ngIf="addedDepInfo" style = "color:crimson; "> Department added! </p>
+                  </form>
+              </div>
+          </div>
+          </div>
             </div>
           </div>
   

@@ -3,7 +3,7 @@
       <!-- Sidebar -->
       <div class="bg-light border-right" id="sidebar-wrapper">
         <div class="list-group-item list-group-item-action bg-light font-weight-bold" (click)="showMain()" >
-          {{ token.email }}
+          {{ name }}
         </div>
         <div class="list-group list-group-flush">
          <!-- <button class="list-group-item list-group-item-action bg-light" (click)="showImport()">Importuj plan zajęć</button>
@@ -65,56 +65,203 @@
             </div>
           </div>
         </div>
-<div class="row">
-        <div class="container-fluid col-8" *ngIf="EditsDisplay">
-          <form class="border border-light mt-3 p-1">
-               
-            <!-- Subject -->
-            <label> Year </label>
-            <select (click)="getAllFields()" required [(ngModel)]="chosenYear.id" style="background-color:mintcream" class="browser-default text-dark custom-select mb-2" id="choose_year" name="class">
-              <option value="" disabled>Choose year</option>
-              <option  class="bg-light text-dark" *ngFor="let year of years" style="background-color:mintcream" [value]="year.id">{{year.start_year}}</option>
-            </select>
 
-            <label> Field of study </label>
-            <select required [(ngModel)]="newClass.field_of_study" style="background-color:mintcream" class="browser-default text-dark custom-select mb-2" id="choose_field" name="class">
-              <option value="" disabled>Choose field of study</option>
-              <option  class="bg-light text-dark" *ngFor="let field of fields" style="background-color:mintcream" [value]="field.id">{{field.name}}</option>
-            </select>
+        <div class="row" *ngIf="EditsDisplay" style="margin-left: 20px; margin-top: 10px;">
+          <div class="col-3">
+            <div class=" row d-flex" style="margin-right: 10px; margin-bottom: 10px;">
+              <div class="card">
+                  <div class="card-header">
+                      <h5>Add year</h5>
+                  </div>
+              <div class="card-body">
+              <form>
 
-            <label>Subject name</label>
-            <input style="background-color:mintcream" [(ngModel)]="newClass.name" type="text" name="class" class="form-control mb-1" placeholder="Subject">
-            
-            <label>Lecturer</label>
-            <input style="background-color:mintcream" [(ngModel)]="newClass.lecturer" type="text" name="class" class="form-control mb-1" placeholder="Lecturer">
-            
-            <label>Description</label>
-            <input style="background-color:mintcream" [(ngModel)]="newClass.description" type="text" name="class" class="form-control mb-1" placeholder="Description">
-            
+                  <div class="input-group form-group">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-user"></i></span>
+                      </div>
+                      <input [(ngModel)] ="startYear" type="text" class="form-control"  name="startYear" placeholder="year" required>
+              
+                  </div>
 
-            <label> Day </label>
-            <select required [(ngModel)]="newClass.day" style="background-color:mintcream" class="browser-default text-dark custom-select mb-2" name="class">
-              <option value="" disabled>Choose day</option>
-              <option  class="bg-light text-dark" *ngFor="let day of days" style="background-color:mintcream" [value]="day">{{day}}</option>
-            </select>
+                  <div class="form-group">
+                      <button (click) = "addYear()" type="submit"  class="btn float-right login_btn btn-danger">
+                          <a routerLink="/dean" style="text-decoration: none; color: white;">Add</a>
+                      </button>
+                  </div>
+                  <p *ngIf="yearInfo" style = "color:crimson; "> Year added! </p>
+              </form>
+            </div>
+          </div>
+          </div>
+          <div class=" row d-flex" style="margin-right: 10px; margin-bottom: 10px;">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Add field of study</h5>
+                </div>
+            <div class="card-body">
+            <form>
 
-            <label> Type </label>
-            <select required [(ngModel)]="newClass.type" style="background-color:mintcream" class="browser-default text-dark custom-select mb-2" name="class">
-              <option value="" disabled>Choose type</option>
-              <option  class="bg-light text-dark" *ngFor="let type of types" style="background-color:mintcream" [value]="type.key">{{type.type}}</option>
-            </select>
+              <form class="border border-light p-1">
+                <label>Choose year</label>
+                <select [(ngModel)]="newField.year" class="browser-default custom-select mb-4"  name="student">
+                  <option value="" disabled>Choose year</option>
+                  
+                   <option *ngFor="let year of years" [value]="year.id">{{year.startYear}}</option>
+                </select>
+              </form>
+
+                <div class="input-group form-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div>
+                    <input [(ngModel)] ="newField.name" type="text" class="form-control"  name="newField.name" placeholder="Field of study" required>
             
-            <label for="appt1-time" style="margin-right:27px;">Start time</label>
-            
-            <label for="appt2-time">End time</label><br>
-            <input [(ngModel)]="newClass.start_time" id="appt1-time" style="margin-right:20px;" type="time" name="class " value="08:30">
-            <input [(ngModel)]="newClass.end_time" id="appt2-time" type="time" name="class" value="08:30">
-            <br> <br>
-            <button (click)="addClass()" class="btn rounded btn-danger">Add class</button>
-           
-          </form>
+                </div>
+
+                <div class="form-group">
+                    <button (click) = "addField()" type="submit"  class="btn float-right login_btn btn-danger">
+                        <a routerLink="/dean" style="text-decoration: none; color: white;">Add</a>
+                    </button>
+                </div>
+                <p *ngIf="fieldInfo" style = "color:crimson; "> Field of study added! </p>
+            </form>
+          </div>
         </div>
-      </div>
+        </div>
+        <div class=" row d-flex" style="margin-right: 10px; margin-bottom: 10px;">
+          <div class="card">
+              <div class="card-header">
+                  <h5>Add subject</h5>
+              </div>
+          <div class="card-body">
+            <form class="border border-light p-1">
+                
+              <!-- Subject -->
+              <label> Choose year </label>
+              <select (click)="getAllFieldsForSubjects()" required [(ngModel)]="newSubject.year" style="background-color:mintcream" class="browser-default text-dark custom-select mb-2" id="choose_year" name="class">
+                <option value="" disabled>Choose year</option>
+                <option    class="bg-light text-dark" *ngFor="let year of years" style="background-color:mintcream" [value]="year.id">{{year.startYear}}</option>
+              </select>
+          
+              <label> Field of study </label>
+              
+              
+              <select required [(ngModel)]="newSubject.fieldId" style="background-color:mintcream" placeholder="Field of study"
+              class="browser-default text-dark custom-select mb-2" id="choose_field" name="class" *ngFor="let year of yearsFiltered" >
+               <option value="" disabled>Choose field of study</option>
+               
+                  <option  class="bg-light text-dark" 
+                  style="background-color:mintcream" *ngFor="let field of year.fieldsOfStudy " [value]="field.id">
+                    <p>
+                      {{field.name}}
+                    </p>
+                
+                  </option>  
+              </select>
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                </div>
+                <input [(ngModel)] ="newSubject.name" type="text" class="form-control"  name="newSubject.name" placeholder="Subject" required>
+        
+             </div>
+             <div class="input-group form-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-user"></i></span>
+              </div>
+              <input [(ngModel)] ="newSubject.pointsToGive" type="text" class="form-control"  name="newSubject.pointsToGive" placeholder="Points to give" required>
+      
+           </div>
+
+              <div class="form-group">
+                <button (click) = "addSubject()" type="submit"  class="btn float-right login_btn btn-danger">
+                    <a routerLink="/dean" style="text-decoration: none; color: white;">Add</a>
+                </button>
+            </div>
+            <p *ngIf="subjectInfo" style = "color:crimson; "> Subject added! </p>
+            </form>
+        </div>
+        </div>
+        </div>
+        </div>
+        <div class="col-8">
+          <div class="card">
+            <div class="card-header">
+                <h5>Add class</h5>
+            </div>
+          <div class="card-body container-fluid">
+            <form class="border border-light p-1">
+                
+              <!-- Subject -->
+              <label> Year </label>
+              <select (click)="getAllFields()" required [(ngModel)]="newClass.year" style="background-color:mintcream" class="browser-default text-dark custom-select mb-2" id="choose_year" name="class">
+                <option value="" disabled>Choose year</option>
+                <option    class="bg-light text-dark" *ngFor="let year of years" style="background-color:mintcream" [value]="year.id">{{year.startYear}}</option>
+              </select>
+              
+              <label> Field of study </label>
+              
+              <select (click)="getAllSubjects()" required [(ngModel)]="newClass.field" style="background-color:mintcream" 
+              class="browser-default text-dark custom-select mb-2" id="choose_field" name="class" *ngFor="let year of yearsFiltered" >
+               <option value="" disabled>Choose field of study</option>
+               
+                  <option  class="bg-light text-dark" 
+                  style="background-color:mintcream" *ngFor="let field of year.fieldsOfStudy " [value]="field.id">
+                    <p  >
+                      {{field.name}}
+                    </p>
+                
+                  </option>
+               
+                
+              </select>
+
+              <label>Subject name</label>
+              <select required [(ngModel)]="newClass.field" style="background-color:mintcream" 
+              class="browser-default text-dark custom-select mb-2" id="choose_field" name="class" *ngFor="let year of yearsFiltered" >
+               <option value="" disabled>Choose field of study</option>
+               
+                  <option  class="bg-light text-dark" 
+                  style="background-color:mintcream" *ngFor="let field of year.fieldsOfStudy " [value]="field.id">
+                    <p>
+                      {{field.name}}
+                    </p>
+                
+                  </option>  
+              </select>
+
+              <label>Lecturer</label>
+              <input style="background-color:mintcream" [(ngModel)]="newClass.lecturer" type="text" name="class" class="form-control mb-1" placeholder="Lecturer">
+              
+              <label>Description</label>
+              <input style="background-color:mintcream" [(ngModel)]="newClass.description" type="text" name="class" class="form-control mb-1" placeholder="Description">
+              
+
+              <label> Day </label>
+              <select required [(ngModel)]="newClass.day" style="background-color:mintcream" class="browser-default text-dark custom-select mb-2" name="class">
+                <option value="" disabled>Choose day</option>
+                <option  class="bg-light text-dark" *ngFor="let day of days" style="background-color:mintcream" [value]="day">{{day}}</option>
+              </select>
+
+              <label> Type </label>
+              <select required [(ngModel)]="newClass.type" style="background-color:mintcream" class="browser-default text-dark custom-select mb-2" name="class">
+                <option value="" disabled>Choose type</option>
+                <option  class="bg-light text-dark" *ngFor="let type of types" style="background-color:mintcream" [value]="type.key">{{type.type}}</option>
+              </select>
+              
+              <label for="appt1-time" style="margin-right:27px;">Start time</label>
+              
+              <label for="appt2-time">End time</label><br>
+              <input [(ngModel)]="newClass.start_time" id="appt1-time" style="margin-right:20px;" type="time" name="class " value="08:30">
+              <input [(ngModel)]="newClass.end_time" id="appt2-time" type="time" name="class" value="08:30">
+              <br> <br>
+              <button (click)="addClass()" class="btn rounded btn-danger">Add class</button>
+            
+            </form>
+          </div>
+        </div>
+        </div>
         <div class="container-fluid" *ngIf="PasswordDisplay">
           <div class="row">
             <div class="col-4" >

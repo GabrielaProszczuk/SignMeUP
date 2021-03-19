@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   err1 = "";
   err2 = "";
   msg = "";
-  user = {email: '', password1: '', password2: '', university: ''}
+  user = {user: '', email: '', password1: '', password2: '', university: ''}
   constructor(private api:UserService, private router: Router) { }
   DisplayRegister = false;
   DisplayLogin = true;
@@ -32,34 +32,10 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    this.api.login(this.email, this.password).subscribe(
-      response => {
-        if(response.user.groups == 1){
-         this.router.navigate(['/admin'])
-        }else if(response.user.groups == 2){
-          this.router.navigate(['/dean'])
-        }else if(response.user.groups == 3){
-          this.router.navigate(['/student'])
-        }
-      },
-      error =>{
-        this.err1 = "Incorrect credentials";
-        console.log(error)
-      }
-    );
+    this.api.login(this.email, this.password);
   }
   register(){
-    this.api.register(this.user).subscribe(
-      response => {
-          console.log("dodano admina");
-          this.router.navigate(['/'])
-          this.msg = "Zarejestrowano";
-      },
-      error =>{
-        this.err2 = "Incorrect credentials. Make sure password has min 8 characters and that given passwords are identical";
-        console.log(error)
-      }
-    );
+    this.api.register(this.user.user, this.user.password1,  this.user.email, this.user.university);
   }
 
 }
